@@ -17,6 +17,38 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 10   | **Assign**: atomFeedLastRunDateTime = startTime
 |    | **End**:                                                                         
 
+```mermaid
+
+flowchart TD
+    Schedule[Schedule Trigger\n(ICSSchedule_1.xsd)]
+    TransformSchedule[Transform Request\n(atomFeedLastRunDateTime)]
+    GetNewHireFeed[Invoke Oracle HCM Cloud\n(EmployeeNewHireFeed)]
+    Router{Data Present?}
+    TransformStageFile[Transform for Stage File]
+    WriteStageFile[Write to Stage File]
+    TransformFTP[Transform for FTP Write]
+    WriteFTP[Write to SFTP Server]
+    OptionalREST[Optional REST Call\n(getEmpDetalisRest)]
+    Assignment[Set Variables / Tracking\n(atomFeedLastRunDateTime)]
+    Stop[End Integration]
+
+    Schedule --> TransformSchedule
+    TransformSchedule --> GetNewHireFeed
+    GetNewHireFeed --> Router
+    Router -- Yes --> TransformStageFile
+    TransformStageFile --> WriteStageFile
+    WriteStageFile --> TransformFTP
+    TransformFTP --> WriteFTP
+    Router -- No --> Stop
+    GetNewHireFeed --> OptionalREST
+    Schedule --> Assignment
+    Assignment --> TransformSchedule
+    WriteFTP --> Stop
+
+```
+
+
+
 ## Additional Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
@@ -60,11 +92,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk3OTEwNTU0MSwyMTEzNTE5NzEsMTMzMD
-E2MjI1NSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDksLTIxMzI1MDM2
-NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MTQ5OTk4MDcsNT
-I4MTExODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEwNCwxMzI1NDc5
-OTAsMTgxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMT
-I1NTA2NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3MTM3LDM2MDA4
-MzQ0Ml19
+eyJoaXN0b3J5IjpbLTk5MTg0MTc0OCwxOTc5MTA1NTQxLDIxMT
+M1MTk3MSwxMzMwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMDQxNTcw
+OSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMT
+QxNDk5OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUw
+MTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1NTgzLD
+g2NzUzNDk4NiwxMjU1MDY0MTI0LDEzNDcxMzY5NDUsLTExNjMw
+MTcxMzddfQ==
 -->
