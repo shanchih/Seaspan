@@ -41,71 +41,46 @@ This OIC integration is designed to extract employee data (both new hires and up
 
 Step
 
-Processor / Application
+Component
 
 Description
 
 1️⃣
 
-`scheduleReceive` + `messageTracker`
+**Schedule Trigger**
 
-Triggered by schedule. `startTime` and `atomFeedLastRunDateTime` captured using tracking variables.
+Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.
 
 2️⃣
 
-Transformer (`processor_36`)
+**Transformer: Build Request**
 
-Constructs the Atom Feed request using the last run datetime.
+Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).
 
 3️⃣
 
-HCM Adapter `getNewHireFeed`
+**HCM Adapter: Get Atom Feed**
 
-Calls **`EmployeeNewHireFeed`** operation to fetch new hire data.
+Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.
 
 4️⃣
 
-Router (`processor_45`)
+**Content-Based Router**
 
-Routes data based on whether feed has new records:• If **new hires present**, proceed to file creation.• If not, alternate path updates metadata (uses `getUpdateWorker`).
+Evaluates whether response contains new data: – If **data exists**: go to file flow – If **no data**: go to update path
 
 5️⃣
 
-Transformer (`processor_70`)
+**Transformer: Format for File**
 
-Maps Atom Feed response to file structure.
+Maps Atom Feed response to flat file format (`processor_70`).
 
 6️⃣
 
-Stage File Write (`processor_56`)
+**Stage File Write**
 
-Writes structured data to a temp file.
-
-7️⃣
-
-Transformer (`processor_93`)
-
-Prepares data for FTP output formatting.
-
-8️⃣
-
-FTP Adapter `writeFileToFTP`
-
-Uploads file to `/HELM/outbound/EmpMaster/`.
-
-9️⃣
-
-REST Adapter `getEmpDetalisRest`
-
-Optional enrichment call to `/hcmRestApi/resources/11.13.18.05/workers/`. (**Review Needed**)
-
-🔚
-
-Stop (`stop`)
-
-Terminates the integration process.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA4ODg3MDk3MywtMTE2MzAxNzEzNywzNj
-AwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0
-NDcxMV19
+eyJoaXN0b3J5IjpbLTE4ODE2NDkzMjIsLTExNjMwMTcxMzcsMz
+YwMDgzNDQyLC0xMDc4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIx
+NDQ3MTFdfQ==
 -->
