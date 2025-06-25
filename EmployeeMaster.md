@@ -17,6 +17,19 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 |    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
 
+## Zoomable Mermaid Diagram
+
+<div style="overflow: auto; border: 1px solid #ddd; padding: 10px;">
+<div id="zoomable-diagram" style="transform-origin: 0 0; transform: scale(1); transition: transform 0.3s ease;">
+```mermaid
+
+sequenceDiagram
+    participant User
+    participant System
+    User->>System: Login Request
+    System->>User: Authentication Token
+
+
 ## Additional Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
@@ -60,11 +73,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyMjI4OTI5NjksMTgzMDQxNTcwOSwtMj
-EzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5
-OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LD
-EzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1NTgzLDg2NzUz
-NDk4NiwxMjU1MDY0MTI0LDEzNDcxMzY5NDUsLTExNjMwMTcxMz
-csMzYwMDgzNDQyLC0xMDc4MjYwNzA1LDE0MTUzNDg4MTUsLTEx
-MTQ4NzY2NTFdfQ==
+eyJoaXN0b3J5IjpbLTgwNDIwMTk1NSwxODMwNDE1NzA5LC0yMT
+MyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxNDE0OTk5
+ODA3LDUyODExMTg4OSwxNzgyODM5NTEyLDEyNjEwNTAxMDQsMT
+MyNTQ3OTkwLDE4MTU2MTYxNDksLTEwODk2NDU1ODMsODY3NTM0
+OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0NSwtMTE2MzAxNzEzNy
+wzNjAwODM0NDIsLTEwNzgyNjA3MDUsMTQxNTM0ODgxNSwtMTEx
+NDg3NjY1MV19
 -->
