@@ -33,8 +33,10 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Message Tracking**:A global `messageTracker` captures key metadata like `startTime`.
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
+
+**IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAwODU4NjgzMCwzNjAwODM0NDIsLTEwNz
+eyJoaXN0b3J5IjpbLTc1ODU4NDczMywzNjAwODM0NDIsLTEwNz
 gyNjA3MDUsMTQxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1
 Njg2LC02MjIxNDQ3MTFdfQ==
 -->
