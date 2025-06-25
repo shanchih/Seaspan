@@ -33,11 +33,11 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
     - Converting AtomFeed response to file format
     - Reformatting file content before FTP upload
 - **Message Tracking**:A global `messageTracker` captures  `startTime`.
-- **Error Handling**:  <font color='red'>No fault handler to capture `APIInvocationError` for both HCM Adapter and Rest Adpater Review Needed!</font>  Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations. (?)
+- **Error Handling**:  <font color='red'>No fault handler to capture `APIInvocationError` for both HCM Adapter and Rest Adpater </font> 
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
-This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.tate  tartie                                                                       
+This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities. <font color='red'>No fault handle </font> 
 
 ##  Integration Flow
 
@@ -60,7 +60,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMDIwNjI0NTIsMjExMzUxOTcxLC0yMj
+eyJoaXN0b3J5IjpbLTE0MjI0MzI2MDMsMjExMzUxOTcxLC0yMj
 E2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUx
 NjksLTIwNDk2OTI4NDksMTI2MTA1MDEwNCwxMzI1NDc5OTAsLT
 EwODk2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAxNzEzNywzNjAw
