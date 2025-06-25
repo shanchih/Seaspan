@@ -63,7 +63,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 ```mermaid
 
 flowchart TD
-    A[Schedule Trigger] --> B[Get Integration Metadata]
+    A[Schedule Trigger] --> B[Transformer: Build Request]
+    B --> C[Invoke HCM Adpater\nE
 
 
 
@@ -71,7 +72,7 @@ flowchart TD
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzg1NDg4OTc4LDI3ODg0MTk5OCwtMjQ0OD
+eyJoaXN0b3J5IjpbNTIxMzA3MTIxLDI3ODg0MTk5OCwtMjQ0OD
 YyNDY0LDIxMTM1MTk3MSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDks
 LTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDEyNj
 EwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLDEyNTUwNjQx
