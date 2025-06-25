@@ -39,48 +39,10 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 
-Step
 
-Component
-
-Description
-
-1️⃣
-
-**Schedule Trigger**
-
-Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.
-
-2️⃣
-
-**Transformer: Build Request**
-
-Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).
-
-3️⃣
-
-**HCM Adapter: Get Atom Feed**
-
-Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.
-
-4️⃣
-
-**Content-Based Router**
-
-Evaluates whether response contains new data: – If **data exists**: go to file flow – If **no data**: go to update path
-
-5️⃣
-
-**Transformer: Format for File**
-
-Maps Atom Feed response to flat file format (`processor_70`).
-
-6️⃣
-
-**Stage File Write**
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE4ODE2NDkzMjIsLTExNjMwMTcxMzcsMz
-YwMDgzNDQyLC0xMDc4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIx
-NDQ3MTFdfQ==
+eyJoaXN0b3J5IjpbODY2NzY1MjkxLC0xMTYzMDE3MTM3LDM2MD
+A4MzQ0MiwtMTA3ODI2MDcwNSwtMTExNDg3NjY1MSwtNjIyMTQ0
+NzExXX0=
 -->
