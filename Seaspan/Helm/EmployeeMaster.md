@@ -39,17 +39,15 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 
-## 🧭 Integration 
-
-## 🧭 Integration Steps
+##  Integration Flow
 
 | Step  | Flow Description                                                                                                                             |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                          |
-| 2 | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).           |
+| 2 | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime.           |
 | 3 | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                  |
 | 4 | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
-|       | •**Route A (Data Exists)**:                                                                                                           |
+|       | •**Route A (New Hire Exists)**:                                                                                                           |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).         |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File Write** — Writes transformed data to a temp file using Stage File Adapter.                    |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare for FTP** — Formats the staged content for FTP upload (`processor_93`).           |
@@ -60,8 +58,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 5 | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    | **Stop** — Ends the integration.                                                                                                      |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0Nzg2Njk4MzksMTMyNTQ3OTkwLC0xMD
-g5NjQ1NTgzLDEyNTUwNjQxMjQsLTExNjMwMTcxMzcsMzYwMDgz
-NDQyLC0xMDc4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIxNDQ3MT
-FdfQ==
+eyJoaXN0b3J5IjpbMTI2MTA1MDEwNCwxMzI1NDc5OTAsLTEwOD
+k2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAxNzEzNywzNjAwODM0
+NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0NDcxMV
+19
 -->
