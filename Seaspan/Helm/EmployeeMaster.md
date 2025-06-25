@@ -17,37 +17,6 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 10   | **Assign**: atomFeedLastRunDateTime = startTime
 |    | **End**:                                                                         
 
-```mermaid
-
-flowchart TD
-    Schedule[Schedule Trigger\n(ICSSchedule_1.xsd)]
-    TransformSchedule[Transform Request\n(atomFeedLastRunDateTime)]
-    GetNewHireFeed[Invoke Oracle HCM Cloud\n(EmployeeNewHireFeed)]
-    Router{Data Present?}
-    TransformStageFile[Transform for Stage File]
-    WriteStageFile[Write to Stage File]
-    TransformFTP[Transform for FTP Write]
-    WriteFTP[Write to SFTP Server]
-    OptionalREST[Optional REST Call\n(getEmpDetalisRest)]
-    Assignment[Set Variables / Tracking\n(atomFeedLastRunDateTime)]
-    Stop[End Integration]
-
-    Schedule --> TransformSchedule
-    TransformSchedule --> GetNewHireFeed
-    GetNewHireFeed --> Router
-    Router -- Yes --> TransformStageFile
-    TransformStageFile --> WriteStageFile
-    WriteStageFile --> TransformFTP
-    TransformFTP --> WriteFTP
-    Router -- No --> Stop
-    GetNewHireFeed --> OptionalREST
-    Schedule --> Assignment
-    Assignment --> TransformSchedule
-    WriteFTP --> Stop
-
-```
-
-
 
 ## Additional Notes
 
@@ -64,8 +33,7 @@ flowchart TD
     - Converting AtomFeed response to file format
     - Reformatting file content before FTP upload
 - **Message Tracking**:A global `messageTracker` captures  `startTime`.
-- **Error Handling**:
-  Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations. (?)
+- **Error Handling**:  <font color='red'>Review Needed!</font>  Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations. (?)
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
@@ -92,10 +60,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk5MTg0MTc0OCwyMTEzNTE5NzEsLTIyMT
-YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
-OSwtMjA0OTY5Mjg0OSwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwtMT
-A4OTY0NTU4MywxMjU1MDY0MTI0LC0xMTYzMDE3MTM3LDM2MDA4
-MzQ0MiwtMTA3ODI2MDcwNSwtMTExNDg3NjY1MSwtNjIyMTQ0Nz
-ExXX0=
+eyJoaXN0b3J5IjpbODIxNjc5NjczLDIxMTM1MTk3MSwtMjIxNj
+I0NDQ5LDE4MzA0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5
+LC0yMDQ5NjkyODQ5LDEyNjEwNTAxMDQsMTMyNTQ3OTkwLC0xMD
+g5NjQ1NTgzLDEyNTUwNjQxMjQsLTExNjMwMTcxMzcsMzYwMDgz
+NDQyLC0xMDc4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIxNDQ3MT
+FdfQ==
 -->
