@@ -1,4 +1,4 @@
-# IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUTMAST_OUT_HCME
+# IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUTMAST_OUT_HCMEXTRACT
 ## Overview
 This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** approach to retrieve new hire data and write it to an SFTP location.
 
@@ -34,7 +34,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3NDczMTEwLDM2MDA4MzQ0MiwtMTA3OD
-I2MDcwNSwxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04Mjc5NDU2
-ODYsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbMTAwODU4NjgzMCwzNjAwODM0NDIsLTEwNz
+gyNjA3MDUsMTQxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1
+Njg2LC02MjIxNDQ3MTFdfQ==
 -->
