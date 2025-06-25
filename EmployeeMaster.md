@@ -18,6 +18,28 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 |    | **End**:                                                                                      |
 
 ```mermaid 
+%%{init: {
+  "theme": "default",
+  "themeVariables": {
+    "fontSize": "16px",
+    "actorBkg": "#EFF5FB",
+    "actorBorder": "#3A7FB8",
+    "actorTextColor": "#1E3D6B",
+    "boxTextColor": "#1E3D6B",
+    "boxStroke": "#3A7FB8",
+    "noteBkgColor": "#FFF8E6",
+    "noteTextColor": "#5F4B1E"
+  },
+  "themeCSS": "
+    .actor { stroke-width: 2px }
+    .note rect { rx: 10; ry: 10; stroke-width: 2px }
+    .label { font-weight: bold }
+    .messageText { font-size: 14px }
+    .box { rx: 15; ry: 15; stroke-width: 2px }
+    .participant { width: 180px }
+    #arrowhead path { fill: #3A7FB8 !important }
+  "
+}}%%
 sequenceDiagram
     participant Scheduler as Scheduler
     participant MessageTracker as Message Tracker
@@ -110,11 +132,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMD
-Q5NjkyODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1
-MTIsMTI2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMT
-A4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2
-OTQ1LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNS
-wxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04Mjc5NDU2ODYsLTYy
-MjE0NDcxMV19
+eyJoaXN0b3J5IjpbLTExNTAxMTM0OTIsLTIxMzI1MDM2NjksMz
+Q0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MTQ5OTk4MDcsNTI4MTEx
+ODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEwNCwxMzI1NDc5OTAsMT
+gxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2
+NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3MTM3LDM2MDA4MzQ0Mi
+wtMTA3ODI2MDcwNSwxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04
+Mjc5NDU2ODZdfQ==
 -->
