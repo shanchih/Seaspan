@@ -19,11 +19,11 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 
 ```mermaid 
 sequenceDiagram
-    participant Scheduler as Scheduler (processor_8)
-    participant MessageTracker as Message Tracker (processor_1)
-    participant HCMCloud as HCM Cloud (getNewHireFeed)
-    participant Router as Content Router (processor_45)
-    participant StageFile as Stage File (processor_56)
+    participant Scheduler as Scheduler
+    participant MessageTracker as Message Tracker
+    participant HCMCloud as HCM Adapter (getNewHireFeed)
+    participant Router as Content Router
+    participant StageFile as Stage File
     participant SFTP as SFTP Adapter (writeFileToFTP)
     participant Assignment as Assignment (processor_101)
     participant HCMRest as HCM REST (getEmpDetalisRest)
@@ -110,10 +110,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MT
-Q5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEw
-NCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Nj
-c1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3
-MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwxNDE1MzQ4ODE1LC
-0xMTE0ODc2NjUxLC04Mjc5NDU2ODYsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbMTAwNjQ0NDM0NCwzNDQwNzUxNjksLTIwND
+k2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUx
+MiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMD
+g5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0MTI0LDEzNDcxMzY5
+NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LD
+E0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgyNzk0NTY4NiwtNjIy
+MTQ0NzExXX0=
 -->
