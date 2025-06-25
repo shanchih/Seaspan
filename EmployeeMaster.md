@@ -59,12 +59,74 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint. |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
+
+```mermaid
+flowchart TD
+    A[Schedule Trigger] --> B[Get Integration Metadata]
+    B --> C[Transform Schedule Data]
+    C --> D[Invoke HCM Cloud\nEmployeeNewHireFeed]
+    D --> E{Content-Based Router}
+    
+    E --> |New Hire Path| F[Transform New Hire Data]
+    F --> G[Stage File]
+    G --> H[Transform File Data]
+    H --> I[Write File to FTP]
+    
+    E --> |Update Path| J[Transform Update Data]
+    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
+    
+    C --> L[Transform for REST]
+    L --> M[Invoke REST\nGet Employee Details]
+    
+    I --> N[Stop]
+    K --> N
+    M --> N
+
+
+```
+
+```mermaid
+sequenceDiagram
+    participant Scheduler
+    participant Integration
+    participant HCM_NewHire
+    participant HCM_Update
+    participant FTP
+    participant REST
+    
+    Scheduler->>Integration: Trigger (scheduleReceive)
+    Integration->>Integration: Get Metadata
+    Integration->>Integration: Transform Schedule Data
+    Integration->>HCM_NewHire: EmployeeNewHireFeed
+    
+    alt New Hire Path
+        HCM_NewHire-->>Integration: New Hire Response
+        Integration->>Integration: Transform New Hire Data
+        Integration->>Integration: Stage File
+        Integration->>FTP: Write File
+        FTP-->>Integration: Write Response
+    else Update Path
+        HCM_NewHire-->>Integration: Update Response
+        Integration->>Integration: Transform Update Data
+        Integration->>HCM_Update: EmployeeUpdateFeed
+        HCM_Update-->>Integration: Update Response
+    end
+    
+    par REST Call
+        Integration->>Integration: Transform for REST
+        Integration->>REST: Get Employee Details
+        REST-->>Integration: Employee Data
+    end
+    
+    Integration->>Integration: Stop
+
+```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3MiwxOT
-c5MTA1NTQxLDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMjE2MjQ0
-NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLT
-IwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4Mjgz
-OTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC
-0xMDg5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0MTI0LDEzNDcx
-MzY5NDVdfQ==
+eyJoaXN0b3J5IjpbMjc4ODQxOTk4LC0yNDQ4NjI0NjQsLTEwOT
+U4NDM4NzIsMTk3OTEwNTU0MSwyMTEzNTE5NzEsMTMzMDE2MjI1
+NSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDksLTIxMzI1MDM2NjksMz
+Q0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MTQ5OTk4MDcsNTI4MTEx
+ODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEwNCwxMzI1NDc5OTAsMT
+gxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2
+NDEyNF19
 -->
