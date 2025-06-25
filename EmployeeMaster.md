@@ -64,7 +64,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 
 flowchart TD
     A[Schedule Trigger] --> B[Transformer: Build Request]
-    B --> C[Invoke HCM Adpater\nEmp
+    B --> C[Invoke HCM Adpater\nEmployee New Hire]
+    C --> 
 
 
 
@@ -72,11 +73,11 @@ flowchart TD
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk2MzU4MDA3Niw5Njc2MDM3NTAsMjc4OD
-QxOTk4LC0yNDQ4NjI0NjQsLTEwOTU4NDM4NzIsMTk3OTEwNTU0
-MSwyMTEzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
-A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
-ODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMT
-I2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0
-NTU4M119
+eyJoaXN0b3J5IjpbOTgzODQwNjY0LDk2NzYwMzc1MCwyNzg4ND
+E5OTgsLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3MiwxOTc5MTA1NTQx
+LDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMD
+QxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4
+NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMj
+YxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1
+NTgzXX0=
 -->
