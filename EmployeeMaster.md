@@ -60,14 +60,18 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 
+```mermaid
+A[Schedule Trigger] --> B[Transformer: Build Request]
+B --> C[Invoke HCM Adpater\nEmployee New Hire]
+C --> Get Integration Metadata]D{Router}
+```
+
+
 ```mermaid 
 flowchart TD
 A[Schedule Trigger] --> B[Transformer: Build Request]
 B --> C[Invoke HCM Adpater\nEmployee New Hire]
 C --> Get Integration Metadata]D{Router}
-
-
-
 ```
 
 ```mermaid
@@ -79,11 +83,11 @@ flowchart TD
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDUxMTkzMiw3MTYzNTYzMTYsOTY3NjAzNz
-UwLDI3ODg0MTk5OCwtMjQ0ODYyNDY0LC0xMDk1ODQzODcyLDE5
-NzkxMDU1NDEsMjExMzUxOTcxLDEzMzAxNjIyNTUsLTIyMTYyND
-Q0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwt
-MjA0OTY5Mjg0OSwxNDE0OTk5ODA3LDUyODExMTg4OSwxNzgyOD
-M5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYxNDld
-fQ==
+eyJoaXN0b3J5IjpbLTE3Nzg1MTExMzksNzE2MzU2MzE2LDk2Nz
+YwMzc1MCwyNzg4NDE5OTgsLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3
+MiwxOTc5MTA1NTQxLDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMj
+E2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUx
+NjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMT
+c4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2
+MTQ5XX0=
 -->
