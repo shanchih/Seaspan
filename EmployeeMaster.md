@@ -65,7 +65,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 flowchart TD
     A[Schedule Trigger] --> B[Transformer: Build Request]
     B --> C[Invoke HCM Adpater\nEmployee New Hire]
-    C --> Get Integration Metadata]
+    C --> Get Integration Metadata]D{Router}
+
+	D --> |EmployeeNewHireFeed_Update>0|
+
 
 
 
@@ -73,7 +76,7 @@ flowchart TD
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzE2MzU2MzE2LDk4Mzg0MDY2NCw5Njc2MD
+eyJoaXN0b3J5IjpbNDQzNDkwNjQzLDcxNjM1NjMxNiw5Njc2MD
 M3NTAsMjc4ODQxOTk4LC0yNDQ4NjI0NjQsLTEwOTU4NDM4NzIs
 MTk3OTEwNTU0MSwyMTEzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNj
 I0NDQ5LDE4MzA0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5
