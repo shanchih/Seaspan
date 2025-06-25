@@ -17,6 +17,56 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 |    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
 
+```mermaid 
+sequenceDiagram
+    participant Scheduler as Scheduler (processor_8)
+    participant MessageTracker as Message Tracker (processor_1)
+    participant HCMCloud as HCM Cloud (getNewHireFeed)
+    participant Router as Content Router (processor_45)
+    participant StageFile as Stage File (processor_56)
+    participant SFTP as SFTP Adapter (writeFileToFTP)
+    participant Assignment as Assignment (processor_101)
+    participant HCMRest as HCM REST (getEmpDetalisRest)
+
+    Note over Scheduler: Scheduled Trigger (INT-29 HCM Extract)
+    Scheduler->>MessageTracker: Schedule Received (startTime tracking)
+    activate MessageTracker
+    MessageTracker-->>Scheduler: Tracking variables captured
+    deactivate MessageTracker
+
+    Scheduler->>HCMCloud: EmployeeNewHireFeed Request
+    activate HCMCloud
+    HCMCloud-->>Scheduler: EmployeeNewHireFeed Response
+    deactivate HCMCloud
+
+    Scheduler->>Router: Route message
+    activate Router
+    Router->>StageFile: Write Records Request
+    activate StageFile
+    StageFile-->>Router: Write Response
+    deactivate StageFile
+    
+    Router->>SFTP: WriteFile Request
+    activate SFTP
+    SFTP-->>Router: WriteFile Response
+    deactivate SFTP
+    Router-->>Scheduler: Routing complete
+    deactivate Router
+
+    Scheduler->>Assignment: Execute variable assignment
+    activate Assignment
+    Assignment-->>Scheduler: Assignment complete
+    deactivate Assignment
+
+    Scheduler->>HCMRest: execute Request (Employee Details)
+    activate HCMRest
+    HCMRest-->>Scheduler: execute Response
+    deactivate HCMRest
+
+    Note over Scheduler: Integration Completed (100%)
+```
+
+
 ## Additional Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
@@ -60,8 +110,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNDk2OTI4NDksMTI2MTA1MDEwNCwxMz
-I1NDc5OTAsLTEwODk2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAx
-NzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NT
-EsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDEyNj
+EwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLDEyNTUwNjQx
+MjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LC
+0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
 -->
