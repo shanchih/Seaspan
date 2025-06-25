@@ -45,10 +45,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 
 | Step  | Flow Description                                                                                                                             |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                          |
-| 2️⃣ | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).           |
-| 3️⃣ | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                  |
-| 4️⃣ | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
+| 1 | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                          |
+| 2 | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).           |
+| 3 | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                  |
+| 4 | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
 |       | •**Route A (Data Exists)**:                                                                                                           |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).         |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File Write** — Writes transformed data to a temp file using Stage File Adapter.                    |
@@ -57,10 +57,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | •**Route B (No Data or Metadata Update)**:                                                                                            |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint (`processor_177`). |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                                |
-| 5️⃣ | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
+| 5 | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    | **Stop** — Ends the integration.                                                                                                      |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg2MzAxMzkxMCwxMzI1NDc5OTAsLTEwOD
+eyJoaXN0b3J5IjpbLTEwNTkzNjIyMiwxMzI1NDc5OTAsLTEwOD
 k2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAxNzEzNywzNjAwODM0
 NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0NDcxMV
 19
