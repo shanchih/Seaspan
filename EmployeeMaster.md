@@ -44,8 +44,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 | Step  | Flow Description                                                                                                                                                                       |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
-| 2 ****Prepare AtomFeed Request**** — Transformer to cConstruct the Atom Feed request i the last run datetime using XSLT.                                                     |
-| 3 | **Invoke    Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM via HCM Adapter.                                                                            |
+| 2 | **Prepare AtomFeed Request** — Transformer to Construct the Atom Feed request using the last run datetime.                                                     |
+| 3 | **Invoke Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM via HCM Adapter.                                                                            |
 | 4 | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |
 | 5 | **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).                                                                              |
 | 6 | **Stage File Write** — Writes transformed data to a temp file using Stage File Adapter.                                                                                         |
@@ -55,8 +55,9 @@ This OIC integration is designed to extract employee data (both new hires and up
 |    | **Stop** — Ends the integration.                                                                                                                                                |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Nj
-c1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3
-MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwxNDE1MzQ4ODE1LC
-0xMTE0ODc2NjUxLC04Mjc5NDU2ODYsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbMTMyNTQ3OTkwLDE4MTU2MTYxNDksLTEwOD
+k2NDU1ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0
+NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsMT
+QxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1Njg2LC02MjIx
+NDQ3MTFdfQ==
 -->
