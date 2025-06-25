@@ -33,7 +33,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
     - Converting AtomFeed response to file format
     - Reformatting file content before FTP upload
 - **Message Tracking**:A global `messageTracker` captures  `startTime`.
-- **Error Handling**:  <font color='red'>Review Needed!</font>  Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations. (?)
+- **Error Handling**:  <font color='red'>No fault handler to capture `APIInvocationError` for both HCM Adapter and Rest Adpater Review Needed!</font>  Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations. (?)
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
@@ -60,11 +60,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODIxNjc5NjczLDE5NzkxMDU1NDEsMjExMz
-UxOTcxLDEzMzAxNjIyNTUsLTIyMTYyNDQ0OSwxODMwNDE1NzA5
-LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxND
-E0OTk5ODA3LDUyODExMTg4OSwxNzgyODM5NTEyLDEyNjEwNTAx
-MDQsMTMyNTQ3OTkwLDE4MTU2MTYxNDksLTEwODk2NDU1ODMsOD
-Y3NTM0OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0NSwtMTE2MzAx
-NzEzN119
+eyJoaXN0b3J5IjpbLTIwMDIwNjI0NTIsMTk3OTEwNTU0MSwyMT
+EzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4MzA0MTU3
+MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LD
+E0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMTI2MTA1
+MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0NTU4My
+w4Njc1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2OTQ1LC0xMTYz
+MDE3MTM3XX0=
 -->
