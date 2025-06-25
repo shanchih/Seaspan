@@ -23,10 +23,10 @@ sequenceDiagram
     participant MessageTracker as Message Tracker
     participant HCMCloud as HCM Adapter (getNewHireFeed)
     participant Router as Content Router
-    participant StageFile as Stage File 
+    participant StageFile as Stage File
     participant SFTP as SFTP Adapter (writeFileToFTP)
-    participant Assignment as Assignment (processor_101)
-    participant HCMRest as HCM REST (getEmpDetalisRest)
+    participant Assignment as Assignment
+    participant HCMRest as Rest Adapter (getEmpDetalisRest)
 
     Note over Scheduler: Scheduled Trigger (INT-29 HCM Extract)
     Scheduler->>MessageTracker: Schedule Received (startTime tracking)
@@ -110,7 +110,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MjQ3NTMyMDIsMzQ0MDc1MTY5LC0yMD
+eyJoaXN0b3J5IjpbLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMD
 Q5NjkyODQ5LDEyNjEwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1
 NTgzLDEyNTUwNjQxMjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC
 0xMDc4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
