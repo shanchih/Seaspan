@@ -37,7 +37,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
-This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities. <font color='red'>No fault handle </font> 
+This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities. <font color='red'>This integration seems a replicated to the previous integration </font> 
 
 ##  Integration Flow
 
@@ -60,10 +60,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MjI0MzI2MDMsMjExMzUxOTcxLC0yMj
-E2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUx
-NjksLTIwNDk2OTI4NDksMTI2MTA1MDEwNCwxMzI1NDc5OTAsLT
-EwODk2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAxNzEzNywzNjAw
-ODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0ND
-cxMV19
+eyJoaXN0b3J5IjpbLTkzMjA1MzA3NCwyMTEzNTE5NzEsLTIyMT
+YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
+OSwtMjA0OTY5Mjg0OSwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwtMT
+A4OTY0NTU4MywxMjU1MDY0MTI0LC0xMTYzMDE3MTM3LDM2MDA4
+MzQ0MiwtMTA3ODI2MDcwNSwtMTExNDg3NjY1MSwtNjIyMTQ0Nz
+ExXX0=
 -->
