@@ -14,10 +14,8 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-| 10   | **Ass**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
-|    | **End**:                                                                                      |
-
-
+| 10   | **Assign**: atomFeedLastRunDateTime = startTime
+|    | **End**:                                                                         
 
 ## Additional Notes
 
@@ -62,9 +60,9 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MTU1NTc1NDYsLTIyMTYyNDQ0OSwxOD
-MwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5
-Mjg0OSwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwtMTA4OTY0NTU4My
-wxMjU1MDY0MTI0LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3
-ODI2MDcwNSwtMTExNDg3NjY1MSwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbMjEwODM2MDA2MSwtMjIxNjI0NDQ5LDE4Mz
+A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
+ODQ5LDEyNjEwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLD
+EyNTUwNjQxMjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4
+MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
 -->
