@@ -39,9 +39,9 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 
-## 🧭 Integration Steps
+## Integration Flow
 
-| Step  | Flow Description                                                                                                                                                                       |
+| Step  | FlowDescription                                                                                                                                                                       |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
 | 2️⃣ | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).                                                     |
@@ -53,8 +53,9 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 8️⃣ | **FTP Adapter: Upload File** — Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                                                                                       |
 | 9️⃣ | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**)                                           |
 | 🔚    | **Stop** — Ends the integration.                                                                                                                                                |
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkzNTY3NDU4MCwtMTE2MzAxNzEzNywzNj
+eyJoaXN0b3J5IjpbMjAwODc4MzYwMCwtMTE2MzAxNzEzNywzNj
 AwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0
 NDcxMV19
 -->
