@@ -4,10 +4,10 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | Step  | Description                                                                                                                                        |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 | **Schedule Trigger**: Initiated based on a schedule, captures `atomFeedLastRunDateTime` using a tracking variable.       |
-| 2 | **Prepare AtomFeed Request**: Transformer (`processor_36`) builds the HCM Atom Feed request using the last run date.                       |
-| 3 | **Invoke HCM Atom Feed**: Calls the `EmployeeNewHireFeed` operation via Oracle HCM Adapter (`application_24`).                           |
-| 4 | **Route Based on Data**: Content-based router (`processor_45`) checks whether the response contains new hire data.                         |
-| 5 | **Transform Data to File Format**: Transformer (`processor_70`) maps Atom Feed response into a structured file format.                     |
+| 2 | **Prepare AtomFeed Request**: Transformer builds the HCM Atom Feed request using the last run date.                       |
+| 3 | **Invoke HCM Atom Feed**: Calls the `EmployeeNewHireFeed` operation via Oracle HCM Adapter.                           |
+| 4 | **Route Based on Data**: Content-based router checks whether the response contains new hire data.                         |
+| 5 | **Transform Data to File Format**: Transformer maps Atom Feed response into a structured file format.                     |
 | 6 | **Stage File Write**: Writes transformed data to a temporary file using Stage File adapter (`processor_56`).                               |
 | 7 | **Transform for FTP Output**: Another transformer (`processor_93`) formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the designated SFTP location using FTP Adapter (`application_83`).                                  |
@@ -35,5 +35,5 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIxMjIwMjA4MiwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbMTEyOTEyMjgwMSwtNjIyMTQ0NzExXX0=
 -->
