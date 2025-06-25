@@ -8,7 +8,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 1 | **Schedule Trigger**: Initiated based on a schedule, captures `atomFeedLastRunDateTime` using a tracking variable.       |
 | 2 | **Prepare AtomFeed Request**: Transformer builds the HCM Atom Feed request using the last run date time.                       |
 | 3 | **Invoke HCM Atom Feed**: Calls the `EmployeeNewHireFeed` operation via Oracle HCM Adapter.                           |
-| 4 | **Content-based router**: checks whether the response contains new hire data.                         |
+| 4 | **Content-based router**: checks whether the response contains new hire data. (EmployeeNewHireFeed_Update > 0)                        |
 | 5 | **Transform Data to File Format**: Transformer maps Atom Feed response into a structured file format.                     |
 | 6 | **Stage File Write**: Writes transformed data to a temporary file using Stage File adapter.                               |
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
@@ -60,9 +60,9 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 5 | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    | **Stop** — Ends the integration.                                                                                                      |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwNTkzNjIyMiwxMzI1NDc5OTAsMTgxNT
-YxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2NDEy
-NCwxMzQ3MTM2OTQ1LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMT
-A3ODI2MDcwNSwxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04Mjc5
-NDU2ODYsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbLTE0Nzg2Njk4MzksMTMyNTQ3OTkwLDE4MT
+U2MTYxNDksLTEwODk2NDU1ODMsODY3NTM0OTg2LDEyNTUwNjQx
+MjQsMTM0NzEzNjk0NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLT
+EwNzgyNjA3MDUsMTQxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3
+OTQ1Njg2LC02MjIxNDQ3MTFdfQ==
 -->
