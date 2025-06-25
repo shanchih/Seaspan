@@ -34,9 +34,11 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 
-**IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
+# IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
+## Overview
+This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc1ODU4NDczMywzNjAwODM0NDIsLTEwNz
-gyNjA3MDUsMTQxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1
-Njg2LC02MjIxNDQ3MTFdfQ==
+eyJoaXN0b3J5IjpbLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMD
+c4MjYwNzA1LDE0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgyNzk0
+NTY4NiwtNjIyMTQ0NzExXX0=
 -->
