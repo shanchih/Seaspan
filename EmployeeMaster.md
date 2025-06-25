@@ -80,14 +80,16 @@ flowchart TD
     B --> C[Invoke HCM Adpater\nEmployee New Hire]
     C --> Get Integration Metadata]D{Router}
 
+	D --> |EmployeeNewHireFeed_Update>0| E[Map HCM Response to flat file format]
+
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3Nzg1MTExMzksNzE2MzU2MzE2LDk2Nz
-YwMzc1MCwyNzg4NDE5OTgsLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3
-MiwxOTc5MTA1NTQxLDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMj
-E2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUx
-NjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMT
-c4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2
-MTQ5XX0=
+eyJoaXN0b3J5IjpbLTExODc0NzczODAsLTE3Nzg1MTExMzksNz
+E2MzU2MzE2LDk2NzYwMzc1MCwyNzg4NDE5OTgsLTI0NDg2MjQ2
+NCwtMTA5NTg0Mzg3MiwxOTc5MTA1NTQxLDIxMTM1MTk3MSwxMz
+MwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUw
+MzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNy
+w1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0
+Nzk5MF19
 -->
