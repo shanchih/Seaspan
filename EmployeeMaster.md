@@ -61,67 +61,21 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 
 ```mermaid
+
 flowchart TD
-    A[Schedule Trigger] --> B[Transformer:Build requestTransform euet]
-     --> [Invoke HCM AdapterCloud\nEmployeeNewHireFeed]
-    C --> D{Content-Based Router}
-        
-     --> |EmployeeNew Hire PathFeed_Update > 0| F[Transform New Hire Data]
-    F --> G[Stage File]
-    G --> H[Transform File Data]
-    H --> I[Write File to FTP]
-    
-    E --> |Updath| J[Transform Update Data]
-    J --> K[Invoke HCM \nEmployeeUpdateFeed]
-    
-    
-    I --> N[Stop]
+    A[Schedule Trigger] --> B[Get Integration Metadata]
+
 
 
 ```
 
-```mermaid
-sequenceDiagram
-    participant Scheduler
-    participant Integration
-    participant HCM_NewHire
-    participant HCM_Update
-    participant FTP
-    participant REST
-    
-    Scheduler->>Integration: Trigger (scheduleReceive)
-    Integration->
-    Integration->>Integration: Transform Schedule Data
-    Integration->>HCM_NewHire: EmployeeNewHireFeed
-    
-    alt New Hire Path
-        HCM_NewHire-->>Integration: New Hire Response
-        Integration->>Integration: Transform New Hire Data
-        Integration->>Integration: Stage File
-        Integration->>FTP: Write File
-        FTP-->>Integration: Write Response
-    else Update Path
-        HCM_NewHire-->>Integration: Update Response
-        Integration->>Integration: Transform Update Data
-        Integration->>HCM_Update: EmployeeUpdateFeed
-        HCM_Update-->>Integration: Update Response
-    end
-    
-    par REST Call
-        Integration->>Integration: Transform for REST
-        Integration->>REST: Get Employee Details
-        REST-->>Integration: Employee Data
-    end
-    
-    Integration->>Integration: Stop
 
-```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM5MTQ3NzA4MCw5Njc2MDM3NTAsMjc4OD
-QxOTk4LC0yNDQ4NjI0NjQsLTEwOTU4NDM4NzIsMTk3OTEwNTU0
-MSwyMTEzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
-A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
-ODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMT
-I2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0
-NTU4M119
+eyJoaXN0b3J5IjpbNzg1NDg4OTc4LDk2NzYwMzc1MCwyNzg4ND
+E5OTgsLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3MiwxOTc5MTA1NTQx
+LDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMD
+QxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4
+NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMj
+YxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1
+NTgzXX0=
 -->
