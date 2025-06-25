@@ -39,19 +39,24 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 
-## Integration Flow
+## 🧭 Integration Steps
 
-| Step                                                                                                                                                                        |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                         | 2️⃣ | ****Prepare former buildCons**d Request**  s the HCM Atom Feed request using the last run date.                                               **HCM Adapter: Get Atom Feed** Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                                               | 4️⃣ | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |**Transformer: Format for File**  Maps Atom Feed response to flat file format (`processor_70`).                                                                         — Writes transformed data to a temp file using Stage File Adapter.                                                                             |
-| 7️⃣ | **Transformer: Prepare for FTP**  Formats the staged content for FTP upload (`processor_93`).                                                                        |
-| 8️⃣ | **FTP Adapter: Upload File**  Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                                                                                   |
-| 9️⃣ | **REST Adapter (Optional)**  Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**)                |
-| 🔚    | **Stop**  Ends the integration.                                                                                                                                                |
+| Step  | Flow Description                                                                                                                                                                       |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
+| 2️⃣ | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).                                                     |
+| 3️⃣ | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                                                            |
+| 4️⃣ | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |
+| 5️⃣ | **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).                                                                              |
+| 6️⃣ | **Stage File Write** — Writes transformed data to a temp file using Stage File Adapter.                                                                                         |
+| 7️⃣ | **Transformer: Prepare for FTP** — Formats the staged content for FTP upload (`processor_93`).                                                                                |
+| 8️⃣ | **FTP Adapter: Upload File** — Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                                                                                       |
+| 9️⃣ | **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**)                                           |
+| 🔚    | **Stop** — Ends the integration.                                                                                                                                                |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODY3NTM0OTg2LDEyNTUwNjQxMjQsMTM0Nz
-EzNjk0NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3
-MDUsMTQxNTM0ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1Njg2LC
-02MjIxNDQ3MTFdfQ==
+eyJoaXN0b3J5IjpbNDk4NDc5MTk0LDg2NzUzNDk4NiwxMjU1MD
+Y0MTI0LDEzNDcxMzY5NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQy
+LC0xMDc4MjYwNzA1LDE0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLT
+gyNzk0NTY4NiwtNjIyMTQ0NzExXX0=
 -->
