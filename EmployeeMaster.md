@@ -62,8 +62,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 
 ```mermaid
 flowchart TD
-    A[Schedule Trigger] --> B[Transformer:Build request]
-    B --> C[Invoke HCM Adapter\nEmployeeNewHireFeed]
+    A[Schedule Trigger] --> B[Transformer:Build requestTransform euet]
+     --> [Invoke HCM AdapterCloud\nEmployeeNewHireFeed]
     C --> D{Content-Based Router}
     D --> E{Content-Based Router}
     
@@ -73,11 +73,10 @@ flowchart TD
     H --> I[Write File to FTP]
     
     E --> |Update Path| J[Transform Update Data]
-    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
+    J --> K[Invoke HCM \nEmployeeUpdateFeed]
     
     
     I --> N[Stop]
-    K --> N
 
 
 ```
@@ -92,7 +91,7 @@ sequenceDiagram
     participant REST
     
     Scheduler->>Integration: Trigger (scheduleReceive)
-    Integration->>Integration: Get Metadata
+    Integration->
     Integration->>Integration: Transform Schedule Data
     Integration->>HCM_NewHire: EmployeeNewHireFeed
     
@@ -119,11 +118,11 @@ sequenceDiagram
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3NjAzNzc1NCwyNzg4NDE5OTgsLTI0ND
-g2MjQ2NCwtMTA5NTg0Mzg3MiwxOTc5MTA1NTQxLDIxMTM1MTk3
-MSwxMzMwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMDQxNTcwOSwtMj
-EzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5
-OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LD
-EzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1NTgzLDg2NzUz
-NDk4Nl19
+eyJoaXN0b3J5IjpbOTY3NjAzNzUwLC04NzYwMzc3NTQsMjc4OD
+QxOTk4LC0yNDQ4NjI0NjQsLTEwOTU4NDM4NzIsMTk3OTEwNTU0
+MSwyMTEzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
+A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
+ODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMT
+I2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0
+NTU4M119
 -->
