@@ -13,81 +13,9 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 6 | **Stage File Write**: Writes transformed data to a temporary file using Stage File adapter.                               |
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
-| 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review !</font> **REVIEW NEEDED**
+| 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
 |    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
-
-```mermaid 
-%%{init: {
-  "theme": "default",
-  "themeVariables": {
-    "fontSize": "16px",
-    "actorBkg": "#EFF5FB",
-    "actorBorder": "#3A7FB8",
-    "actorTextColor": "#1E3D6B",
-    "boxTextColor": "#1E3D6B",
-    "boxStroke": "#3A7FB8",
-    "noteBkgColor": "#FFF8E6",
-    "noteTextColor": "#5F4B1E"
-  },
-  "themeCSS": "
-    .actor { stroke-width: 2px }
-    .note rect { rx: 10; ry: 10; stroke-width: 2px }
-    .label { font-weight: bold }
-    .messageText { font-size: 14px }
-    .box { rx: 15; ry: 15; stroke-width: 2px }
-    .participant { width: 180px }
-    #arrowhead path { fill: #3A7FB8 !important }
-  "
-}}%%
-sequenceDiagram
-    participant Scheduler as Scheduler
-    participant MessageTracker as Message Tracker
-    participant HCMCloud as HCM Adapter (getNewHireFeed)
-    participant Router as Content Router
-    participant StageFile as Stage File
-    participant SFTP as SFTP Adapter (writeFileToFTP)
-    participant Assignment as Assignment
-    participant HCMRest as Rest Adapter (getEmpDetalisRest)
-
-    Note over Scheduler: Scheduled Trigger
-    Scheduler->>MessageTracker: Schedule Received (startTime tracking)
-    activate MessageTracker
-    MessageTracker-->>Scheduler: Tracking variables captured
-    deactivate MessageTracker
-
-    Scheduler->>HCMCloud: EmployeeNewHireFeed Request
-    activate HCMCloud
-    HCMCloud-->>Scheduler: EmployeeNewHireFeed Response
-    deactivate HCMCloud
-
-    Scheduler->>Router: Route message
-    activate Router
-    Router->>StageFile: Write Records Request
-    activate StageFile
-    StageFile-->>Router: Write Response
-    deactivate StageFile
-    
-    Router->>SFTP: WriteFile Request
-    activate SFTP
-    SFTP-->>Router: WriteFile Response
-    deactivate SFTP
-    Router-->>Scheduler: Routing complete
-    deactivate Router
-
-    Scheduler->>Assignment: Execute variable assignment
-    activate Assignment
-    Assignment-->>Scheduler: Assignment complete
-    deactivate Assignment
-
-    Scheduler->>HCMRest: execute Request (Employee Details)
-    activate HCMRest
-    HCMRest-->>Scheduler: execute Response
-    deactivate HCMRest
-
-    Note over Scheduler: Integration Completed (100%)
-```
-
 
 ## Additional Notes
 
@@ -132,11 +60,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzND
-QwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4
-ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxOD
-E1NjE2MTQ5LC0xMDg5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0
-MTI0LDEzNDcxMzY5NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC
-0xMDc4MjYwNzA1LDE0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgy
-Nzk0NTY4Nl19
+eyJoaXN0b3J5IjpbLTEyMjI4OTI5NjksMTgzMDQxNTcwOSwtMj
+EzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5
+OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LD
+EzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMDg5NjQ1NTgzLDg2NzUz
+NDk4NiwxMjU1MDY0MTI0LDEzNDcxMzY5NDUsLTExNjMwMTcxMz
+csMzYwMDgzNDQyLC0xMDc4MjYwNzA1LDE0MTUzNDg4MTUsLTEx
+MTQ4NzY2NTFdfQ==
 -->
