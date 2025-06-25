@@ -15,8 +15,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 |    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
 
-
-## 🔍 Special Notes
+## Additional Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
 - **Adapters Used**:
@@ -26,7 +25,6 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
   - **FTP Adapter** for final file delivery
   - **REST Adapter** (`getEmpDetalisRest`) for optional data enrichment
 - **Transformers**:
-
   - Three transformers are used for:
     - Preparing AtomFeed request
     - Converting AtomFeed response to file format
@@ -35,6 +33,6 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5MTE5NjgwOTUsMTQxNTM0ODgxNSwtMT
+eyJoaXN0b3J5IjpbLTEwNzgyNjA3MDUsMTQxNTM0ODgxNSwtMT
 ExNDg3NjY1MSwtODI3OTQ1Njg2LC02MjIxNDQ3MTFdfQ==
 -->
