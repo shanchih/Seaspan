@@ -25,8 +25,8 @@ sequenceDiagram
     participant Router as Content Router
     participant StageFile as Stage File
     participant SFTP as SFTP Adapter (writeFileToFTP)
-    participant Assignment as Assignment (processor_101)
-    participant HCMRest as HCM REST (getEmpDetalisRest)
+    participant Assignment as Assignment
+    participant HCMRest as Rest Adapter (getEmpDetalisRest)
 
     Note over Scheduler: Scheduled Trigger (INT-29 HCM Extract)
     Scheduler->>MessageTracker: Schedule Received (startTime tracking)
@@ -110,11 +110,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTAwNjQ0NDM0NCwzNDQwNzUxNjksLTIwND
-k2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4MjgzOTUx
-MiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5LC0xMD
-g5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0MTI0LDEzNDcxMzY5
-NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LD
-E0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgyNzk0NTY4NiwtNjIy
-MTQ0NzExXX0=
+eyJoaXN0b3J5IjpbLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMD
+Q5NjkyODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1
+MTIsMTI2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMT
+A4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2
+OTQ1LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNS
+wxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04Mjc5NDU2ODYsLTYy
+MjE0NDcxMV19
 -->
