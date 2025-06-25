@@ -14,8 +14,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-| 10   | **Assign**: atomFeedLastRunDateTime = startTime
-|    | **End**:                                                                         
+| 10   | **Assign**: atomFeedLastRunDateTime = startTime                                                                       
 
 ## Additional Notes
 
@@ -31,7 +30,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
     - Preparing AtomFeed request
     - Converting AtomFeed response to file format
     - Reformatting file content before FTP upload
-- **Message Tracking**:A global `messageTracker` captures key metadata like `startTime`.
+- **Message Tracking**:A global `messageTracker` captures  `startTime`.
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 
@@ -60,7 +59,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjEwODM2MDA2MSwtMjIxNjI0NDQ5LDE4Mz
+eyJoaXN0b3J5IjpbMTQ0MjUyNjAwNSwtMjIxNjI0NDQ5LDE4Mz
 A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
 ODQ5LDEyNjEwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLD
 EyNTUwNjQxMjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4
