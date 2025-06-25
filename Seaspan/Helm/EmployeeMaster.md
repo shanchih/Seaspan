@@ -8,7 +8,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 1 | **Schedule Trigger**: Initiated based on a schedule, captures `atomFeedLastRunDateTime` using a tracking variable.       |
 | 2 | **Prepare AtomFeed Request**: Transformer builds the HCM Atom Feed request using the last run date time.                       |
 | 3 | **Invoke HCM Atom Feed**: Calls the `EmployeeNewHireFeed` operation via Oracle HCM Adapter.                           |
-| 4 | **Route Based on Data**: Content-based router checks whether the response contains new hire data.                         |
+| 4 | **Content-based router**: checks whether the response contains new hire data.                         |
 | 5 | **Transform Data to File Format**: Transformer maps Atom Feed response into a structured file format.                     |
 | 6 | **Stage File Write**: Writes transformed data to a temporary file using Stage File adapter.                               |
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
@@ -44,8 +44,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 | Step  | Flow Description                                                                                                                                                                       |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
-| 2 | **Prepare AtomFeed Request** — Transformer to construct the Atom Feed request with the last run datetime using XSLT.                                                     |
-| 3 | **Invoke HCM Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                                                            |
+| 2 | **Prepare AtomFeed Request** — Transformer to construct the Atom Feed request with the last run datetime.                                                     |
+| 3 | **Invoke HCM Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM via HCM Adapter.                                                                            |
 | 4 | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |
 | 5 | **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).                                                                              |
 | 6 | **Stage File Write** — Writes transformed data to a temp file using Stage File Adapter.                                                                                         |
@@ -55,7 +55,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |     | **Stop** — Ends the integration.                                                                                                                                                |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzMzk3NjkwMCwxMjU1MDY0MTI0LC0xMT
-YzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwtMTExNDg3
-NjY1MSwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbLTEwODk2NDU1ODMsMTI1NTA2NDEyNCwtMT
+E2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4
+NzY2NTEsLTYyMjE0NDcxMV19
 -->
