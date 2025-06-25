@@ -41,10 +41,10 @@ This OIC integration is designed to extract employee data (both new hires and up
 
 ## Integration Flow
 
-| Step  | FDescription                                                                                                                                                                       |
+| Step  | Description                                                                                                                                                                       |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
-| 2️⃣ | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).                                                     |
+| 2️⃣ | ****Prepare AtomFeed Request**** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).                                                     |
 | 3️⃣ | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                                                            |
 | 4️⃣ | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |
 | 5️⃣ | **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).                                                                              |
@@ -55,8 +55,8 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    | **Stop** — Ends the integration.                                                                                                                                                |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjU4NjcwMzM0LDEzNDcxMzY5NDUsLTExNj
-MwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LDE0MTUzNDg4
-MTUsLTExMTQ4NzY2NTEsLTgyNzk0NTY4NiwtNjIyMTQ0NzExXX
-0=
+eyJoaXN0b3J5IjpbLTM5MTg3Mjk5NywxMzQ3MTM2OTQ1LC0xMT
+YzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwxNDE1MzQ4
+ODE1LC0xMTE0ODc2NjUxLC04Mjc5NDU2ODYsLTYyMjE0NDcxMV
+19
 -->
