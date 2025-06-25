@@ -14,21 +14,10 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-|    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
+| 10   | **Ass**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
 
-## Zoomable Mermaid Diagram
 
-<div style="overflow: auto; border: 1px solid #ddd; padding: 10px;">
-<div id="zoomable-diagram" style="transform-origin: 0 0; transform: scale(1); transition: transform 0.3s ease;">
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant System
-    User->>System: Login Request
-    System->>User: Authentication Token
-```
 
 ## Additional Notes
 
@@ -73,9 +62,9 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIyMTYyNDQ0OSwxODMwNDE1NzA5LC0yMT
-MyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxMjYxMDUw
-MTA0LDEzMjU0Nzk5MCwtMTA4OTY0NTU4MywxMjU1MDY0MTI0LC
-0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwtMTEx
-NDg3NjY1MSwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbLTE2MTU1NTc1NDYsLTIyMTYyNDQ0OSwxOD
+MwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5
+Mjg0OSwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwtMTA4OTY0NTU4My
+wxMjU1MDY0MTI0LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3
+ODI2MDcwNSwtMTExNDg3NjY1MSwtNjIyMTQ0NzExXX0=
 -->
