@@ -33,11 +33,11 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
     - Converting AtomFeed response to file format
     - Reformatting file content before FTP upload
 - **Message Tracking**:A global `messageTracker` captures  `startTime`.
-- **Error Handling**:  <font color='red'>NoReview Needed!</  Defiffault handler to capture `APIInvocationError` for both HCM Adapter and Rest Adppter ations.
+- **Error Handling**:  <font color='red'>NoReview Needed!</  Defif fault handler to capture `APIInvocationError` for both HCM Adapter and Rest Adppater ations.</font> 
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
-This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities. <font color='red'>No fault han </font> 
+This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities. <font color='red'>This integration seems a replicated to the previous integrtion 
 
 ##  Integration Flow
 
@@ -60,7 +60,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwOTU4NDM4NzIsMTU2OTY1NjEzMiwxOT
+eyJoaXN0b3J5IjpbLTI0NDg2MjQ2NCwtMTA5NTg0Mzg3MiwxOT
 c5MTA1NTQxLDIxMTM1MTk3MSwxMzMwMTYyMjU1LC0yMjE2MjQ0
 NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLT
 IwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMTc4Mjgz
