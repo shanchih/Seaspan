@@ -61,35 +61,49 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 
 ```mermaid
-A[Schedule Trigger] --> B[Transformer: Build Request]
-B --> C[Invoke HCM Adpater\nEmployee New Hire]
-C --> Get Integration Metadata]D{Router}
+flowchart TD
+    A[Schedule Trigger] --> B[st]
+BGet Integration Metadata]
+    B --> C[Transform Schedule Data]
+    C --> CD[Invoke HCM AdpaterCloud\nEmployeeNewHire --> egration Metadata]D{Router}
 ```
 
 
 ```mermaid 
 flowchart TD
-A[Schedule Trigger] --> B[Transformer: Build Request]
-B --> C[Invoke HCM Adpater\nEmployee New Hire]
+A[Schedule Trigger]Feed]
+    D --> E{Content-Based Router}
+    
+    E --> |New Hire Path| F[Transform New Hire Data]
+    F --> G[Stage File]
+    G --> BH[Transformer: Build Reque --> [Transform]
+     --> [Invoke HCM \nEmployee New Hire]
 C --> Get Integration Metadata]D{Router}
 ```
 
 ```mermaid
 flowchart TD
-    A[Schedule Trigger] --> B[Transformer: Build Request]
-    B --> C[Invoke HCM Adpater\nEmployee New Hire]
-    C --> Get Integration Metadata]D{Router}
+    A[Schedule Trigger] --> B[Transformer: Build Request File Data]
+    H --> I[Write File to FTP]
+    
+    E --> |Update Path| J[Transform Update Data]
+    BJ --> CK[Invoke HCM Cloud\nEmployee	D --> |EmployeeNewHireFeed_Update>0| E[Map HCM Response to flat file format]
 
-	D --> |EmployeeNewHireFeed_Update>0| E[Map HCM Response to flat file format]
 
-
-```
+```UpdateFeed]
+    
+    C --> L[Transform for REST]
+    L --> M[Invoke REST\nGet Employee Details]
+    
+    I --> N[Stop]
+    K --> N
+    M --> N
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExODc0NzczODAsLTE3Nzg1MTExMzksNz
-E2MzU2MzE2LDk2NzYwMzc1MCwyNzg4NDE5OTgsLTI0NDg2MjQ2
-NCwtMTA5NTg0Mzg3MiwxOTc5MTA1NTQxLDIxMTM1MTk3MSwxMz
-MwMTYyMjU1LC0yMjE2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUw
-MzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNy
-w1MjgxMTE4ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0
-Nzk5MF19
+eyJoaXN0b3J5IjpbMTg2MzYxODc0NywtMTE4NzQ3NzM4MCw3MT
+YzNTYzMTYsOTY3NjAzNzUwLDI3ODg0MTk5OCwtMjQ0ODYyNDY0
+LC0xMDk1ODQzODcyLDE5NzkxMDU1NDEsMjExMzUxOTcxLDEzMz
+AxNjIyNTUsLTIyMTYyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAz
+NjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxNDE0OTk5ODA3LD
+UyODExMTg4OSwxNzgyODM5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3
+OTkwXX0=
 -->
