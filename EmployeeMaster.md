@@ -14,21 +14,10 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-|    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
+| 10   | **Assi**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
 |    | **End**:                                                                                      |
 
-## Zoomable Mermaid Diagram
 
-<div style="overflow: auto; border: 1px solid #ddd; padding: 10px;">
-<div id="zoomable-diagram" style="transform-origin: 0 0; transform: scale(1); transition: transform 0.3s ease;">
-
-```mermaid
-
-sequenceDiagram
-    participant t System
-    User->>System: Login Request
-    System->>User: Authentication Token
-```
 
 ## Additional Notes
 
@@ -73,11 +62,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
-A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
-ODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMT
-I2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0
-NTU4Myw4Njc1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2OTQ1LC
-0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwxNDE1
-MzQ4ODE1XX0=
+eyJoaXN0b3J5IjpbLTc2MDA1MjU3LDEzMzAxNjIyNTUsLTIyMT
+YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
+OSwtMjA0OTY5Mjg0OSwxNDE0OTk5ODA3LDUyODExMTg4OSwxNz
+gyODM5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYx
+NDksLTEwODk2NDU1ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMT
+M0NzEzNjk0NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgy
+NjA3MDVdfQ==
 -->
