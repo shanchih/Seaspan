@@ -83,23 +83,27 @@ C --> Get Integration Metadata]D{Router}
 
 ```mermaid
 flowchart TD
-    A[Schedule Trigger] --> B[Transformer: Build Request File Data]
+    A[Schedule Trigger] --> B[Get Integration Metadata]
+    B --> C[Transform Schedule Data]
+    C --> D[Invoke HCM Cloud\nEmployeeNewHireFeed]
+    D --> E{Content-Based Router}
+    
+    E --> |New Hire Path| F[Transform New Hire Data]
+    F --> G[Stage File]
+    G --> H[Transform File Data]
     H --> I[Write File to FTP]
     
     E --> |Update Path| J[Transform Update Data]
-    BJ --> CK[Invoke HCM Cloud\nEmployee	D --> |EmployeeNewHireFeed_Update>0| E[Map HCM Response to flat file format]
-
-
-```UpdateFeed]
+    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
     
     C --> L[Transform for REST]
     L --> M[Invoke REST\nGet Employee Details]
     
     I --> N[Stop]
     K --> N
-    M --> N
+    M --> N```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg2MzYxODc0NywtMTE4NzQ3NzM4MCw3MT
+eyJoaXN0b3J5IjpbLTU1NzA5MDAxMywtMTE4NzQ3NzM4MCw3MT
 YzNTYzMTYsOTY3NjAzNzUwLDI3ODg0MTk5OCwtMjQ0ODYyNDY0
 LC0xMDk1ODQzODcyLDE5NzkxMDU1NDEsMjExMzUxOTcxLDEzMz
 AxNjIyNTUsLTIyMTYyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAz
