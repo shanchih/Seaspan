@@ -54,12 +54,14 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File** Writes transformed data to a temp file using Stage File Adapter.  |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Formats the staged content for FTP upload.           |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **FTP Adapter:** Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                  |
-|       | •**Otherwise**:                 | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint. |
+|       | •**Otherwise**:                 
+|
+|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint. |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxNDk5OTgwNywxMjYxMDUwMTA0LDEzMj
-U0Nzk5MCwtMTA4OTY0NTU4MywxMjU1MDY0MTI0LC0xMTYzMDE3
-MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwtMTExNDg3NjY1MS
-wtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbLTIwNDk2OTI4NDksMTI2MTA1MDEwNCwxMz
+I1NDc5OTAsLTEwODk2NDU1ODMsMTI1NTA2NDEyNCwtMTE2MzAx
+NzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NT
+EsLTYyMjE0NDcxMV19
 -->
