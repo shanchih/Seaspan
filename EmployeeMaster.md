@@ -23,9 +23,9 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 <div id="zoomable-diagram" style="transform-origin: 0 0; transform: scale(1); transition: transform 0.3s ease;">
 
 ```mermaid
+
 sequenceDiagram
-    participant User
-    participant System
+    participant t System
     User->>System: Login Request
     System->>User: Authentication Token
 ```
@@ -73,11 +73,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIyMTYyNDQ0OSwxODMwNDE1NzA5LC0yMT
-MyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxNDE0OTk5
-ODA3LDUyODExMTg4OSwxNzgyODM5NTEyLDEyNjEwNTAxMDQsMT
-MyNTQ3OTkwLDE4MTU2MTYxNDksLTEwODk2NDU1ODMsODY3NTM0
-OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0NSwtMTE2MzAxNzEzNy
-wzNjAwODM0NDIsLTEwNzgyNjA3MDUsMTQxNTM0ODgxNSwtMTEx
-NDg3NjY1MV19
+eyJoaXN0b3J5IjpbMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
+A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
+ODQ5LDE0MTQ5OTk4MDcsNTI4MTExODg5LDE3ODI4Mzk1MTIsMT
+I2MTA1MDEwNCwxMzI1NDc5OTAsMTgxNTYxNjE0OSwtMTA4OTY0
+NTU4Myw4Njc1MzQ5ODYsMTI1NTA2NDEyNCwxMzQ3MTM2OTQ1LC
+0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNSwxNDE1
+MzQ4ODE1XX0=
 -->
