@@ -75,12 +75,9 @@ flowchart TD
     E --> |Update Path| J[Transform Update Data]
     J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
     
-    C --> L[Transform for REST]
-    L --> M[Invoke REST\nGet Employee Details]
     
     I --> N[Stop]
     K --> N
-    M --> N
 
 
 ```
@@ -122,7 +119,7 @@ sequenceDiagram
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgzMjY0NzQ1NSwyNzg4NDE5OTgsLTI0ND
+eyJoaXN0b3J5IjpbMTk4MTQwNjY1MSwyNzg4NDE5OTgsLTI0ND
 g2MjQ2NCwyMTEzNTE5NzEsLTIyMTYyNDQ0OSwxODMwNDE1NzA5
 LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxMj
 YxMDUwMTA0LDEzMjU0Nzk5MCwtMTA4OTY0NTU4MywxMjU1MDY0
