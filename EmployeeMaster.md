@@ -51,17 +51,17 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 4 | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
 |       |  •**New HireData Exists**:  (EmployeeNewHireFeed_Update > 0)                                                                                 |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Maps Atom Feed response to flat file format.         |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File:** Writes transformed data to a temp file using Stage File Adapter.  |
+|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File** Writes transformed data to a temp file using Stage File Adapter.  |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Formats the staged content for FTP upload.           |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **FTP Adapter:** Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                  |
-|       | •**Route B (No Data or Metadata Update)**:                 | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint (`processor_177`). |
+|       | •**Route B (No Data or Metadata Update)**:                 | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint. |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTI5NDg2MTM3OCwxNzgyODM5NTEyLDEyNj
-EwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYxNDksLTEwODk2NDU1
-ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0NSwtMT
-E2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsMTQxNTM0
-ODgxNSwtMTExNDg3NjY1MSwtODI3OTQ1Njg2LC02MjIxNDQ3MT
-FdfQ==
+eyJoaXN0b3J5IjpbNTI4MTExODg5LC0yOTQ4NjEzNzgsMTc4Mj
+gzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2MTQ5
+LC0xMDg5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0MTI0LDEzND
+cxMzY5NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYw
+NzA1LDE0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgyNzk0NTY4Ni
+wtNjIyMTQ0NzExXX0=
 -->
