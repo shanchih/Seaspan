@@ -49,16 +49,16 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 2 | **Transformer: Build Request** — Constructs the Atom Feed request using the last run datetime.           |
 |  | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.      |
 | 4 | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
-|       |  •**Route A (New HireData Exists)**:  (EmployeeNewHireFeed_Update > 0)                                                                                 |
+|       |  •**New HireData Exists**:  (EmployeeNewHireFeed_Update > 0)                                                                                 |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Maps Atom Feed response to flat file format.         |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File:** Writes transformed data to a temp file using Stage File Adapter.  |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** — Formats the staged content for FTP upload (`processor_93`).           |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **FTP Adapter: Upload File** — Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                  |
+|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Formats the staged content for FTP upload.           |
+|       | &nbsp;&nbsp;&nbsp;&nbsp;– **FTP Adapter:** Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                  |
 |       | •**Route B (No Data or Metadata Update)**:                 | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint (`processor_177`). |
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0NjU4Mzk1NCwxNzgyODM5NTEyLDEyNj
+eyJoaXN0b3J5IjpbLTI5NDg2MTM3OCwxNzgyODM5NTEyLDEyNj
 EwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYxNDksLTEwODk2NDU1
 ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMTM0NzEzNjk0NSwtMT
 E2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MDUsMTQxNTM0
