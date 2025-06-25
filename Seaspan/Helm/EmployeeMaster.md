@@ -2,6 +2,7 @@
 ## Overview
 This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** approach to retrieve new hire data and write it to an SFTP location.
 
+## Integration Flow
 | Step  | Description                                                                                                                                        |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 | **Schedule Trigger**: Initiated based on a schedule, captures `atomFeedLastRunDateTime` using a tracking variable.       |
@@ -37,7 +38,74 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
+
+Step
+
+Processor / Application
+
+Description
+
+1️⃣
+
+`scheduleReceive` + `messageTracker`
+
+Triggered by schedule. `startTime` and `atomFeedLastRunDateTime` captured using tracking variables.
+
+2️⃣
+
+Transformer (`processor_36`)
+
+Constructs the Atom Feed request using the last run datetime.
+
+3️⃣
+
+HCM Adapter `getNewHireFeed`
+
+Calls **`EmployeeNewHireFeed`** operation to fetch new hire data.
+
+4️⃣
+
+Router (`processor_45`)
+
+Routes data based on whether feed has new records:• If **new hires present**, proceed to file creation.• If not, alternate path updates metadata (uses `getUpdateWorker`).
+
+5️⃣
+
+Transformer (`processor_70`)
+
+Maps Atom Feed response to file structure.
+
+6️⃣
+
+Stage File Write (`processor_56`)
+
+Writes structured data to a temp file.
+
+7️⃣
+
+Transformer (`processor_93`)
+
+Prepares data for FTP output formatting.
+
+8️⃣
+
+FTP Adapter `writeFileToFTP`
+
+Uploads file to `/HELM/outbound/EmpMaster/`.
+
+9️⃣
+
+REST Adapter `getEmpDetalisRest`
+
+Optional enrichment call to `/hcmRestApi/resources/11.13.18.05/workers/`. (**Review Needed**)
+
+🔚
+
+Stop (`stop`)
+
+Terminates the integration process.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMD
-c4MjYwNzA1LC0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
+eyJoaXN0b3J5IjpbMjA4ODg3MDk3MywtMTE2MzAxNzEzNywzNj
+AwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0
+NDcxMV19
 -->
