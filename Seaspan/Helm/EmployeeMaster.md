@@ -61,67 +61,20 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 
 ```mermaid
+
 flowchart TD
-    A[Schedule Trigger] --> B[Transformer:Build request]
-    B --> C[Invoke HCM Adapter\nEmployeeNewHireFeed]
-    C --> D{Content-Based Router}
-        
-    D --> |EmployeeNewHireFeed_Update > 0| F[Transform New Hire Data]
-    F --> G[Stage File]
-    G --> H[Transform File Data]
-    H --> I[Write File to FTP]
-    
-    E --> |Update Path| J[Transform Update Data]
-    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
-    
-    
-    I --> N[Stop]
-    K --> N
+    A[Schedule Trigger] --> B[Get Integration Metadata]
+
 
 
 ```
 
-```mermaid
-sequenceDiagram
-    participant Scheduler
-    participant Integration
-    participant HCM_NewHire
-    participant HCM_Update
-    participant FTP
-    participant REST
-    
-    Scheduler->>Integration: Trigger (scheduleReceive)
-    Integration->>Integration: Get Metadata
-    Integration->>Integration: Transform Schedule Data
-    Integration->>HCM_NewHire: EmployeeNewHireFeed
-    
-    alt New Hire Path
-        HCM_NewHire-->>Integration: New Hire Response
-        Integration->>Integration: Transform New Hire Data
-        Integration->>Integration: Stage File
-        Integration->>FTP: Write File
-        FTP-->>Integration: Write Response
-    else Update Path
-        HCM_NewHire-->>Integration: Update Response
-        Integration->>Integration: Transform Update Data
-        Integration->>HCM_Update: EmployeeUpdateFeed
-        HCM_Update-->>Integration: Update Response
-    end
-    
-    par REST Call
-        Integration->>Integration: Transform for REST
-        Integration->>REST: Get Employee Details
-        REST-->>Integration: Employee Data
-    end
-    
-    Integration->>Integration: Stop
 
-```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQzMzIzOTkxOSwyNzg4NDE5OTgsLTI0ND
-g2MjQ2NCwyMTEzNTE5NzEsLTIyMTYyNDQ0OSwxODMwNDE1NzA5
-LC0yMTMyNTAzNjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxMj
-YxMDUwMTA0LDEzMjU0Nzk5MCwtMTA4OTY0NTU4MywxMjU1MDY0
-MTI0LC0xMTYzMDE3MTM3LDM2MDA4MzQ0MiwtMTA3ODI2MDcwNS
-wtMTExNDg3NjY1MSwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbNzg1NDg4OTc4LDI3ODg0MTk5OCwtMjQ0OD
+YyNDY0LDIxMTM1MTk3MSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDks
+LTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDEyNj
+EwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLDEyNTUwNjQx
+MjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LC
+0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
 -->
