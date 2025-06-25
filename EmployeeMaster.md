@@ -12,11 +12,11 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review !</font> **REVIEW NEEDED**
-|    | **End**: Integration ends with a `stop` processor.                                                                                         |
+|    | **End**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
+|    | **End**:                                                                                      |
 
----
 
-# 🔍 Special Notes
+## 🔍 Special Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
 - **Adapters Used**:
@@ -35,6 +35,6 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxNTM0ODgxNSwtMTk3NjQxODE2NCwtMT
+eyJoaXN0b3J5IjpbLTE5MTE5NjgwOTUsMTQxNTM0ODgxNSwtMT
 ExNDg3NjY1MSwtODI3OTQ1Njg2LC02MjIxNDQ3MTFdfQ==
 -->
