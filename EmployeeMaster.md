@@ -14,10 +14,8 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-| 10   | **Assi**: Integration ends with a `stop` processor.   Needed. Not clear the purpose of this step</font>
-|    | **End**:                                                                                      |
-
-
+| 10   | **Assign**: atomFeedLastRunDateTime = startTime
+|    | **End**:                                                                         
 
 ## Additional Notes
 
@@ -62,11 +60,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTc2MDA1MjU3LDEzMzAxNjIyNTUsLTIyMT
-YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
-OSwtMjA0OTY5Mjg0OSwxNDE0OTk5ODA3LDUyODExMTg4OSwxNz
-gyODM5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYx
-NDksLTEwODk2NDU1ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMT
-M0NzEzNjk0NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgy
-NjA3MDVdfQ==
+eyJoaXN0b3J5IjpbMjEwODM2MDA2MSwxMzMwMTYyMjU1LC0yMj
+E2MjQ0NDksMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzNDQwNzUx
+NjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4ODksMT
+c4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxODE1NjE2
+MTQ5LC0xMDg5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0MTI0LD
+EzNDcxMzY5NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4
+MjYwNzA1XX0=
 -->
