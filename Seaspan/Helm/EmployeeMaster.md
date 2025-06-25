@@ -39,12 +39,12 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 ## Overview
 This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
 
-## Integration Flow
+## 🧭 Integration Steps
 
-| Step  | Description                                                                                                                                                                       |
+| Step  | Flow Description                                                                                                                                                                       |
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1️⃣ | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.                                                                    |
-| 2️⃣ | ****Prepare AtomFeed Request**** — Transformer builds the HCM Atom Feed request using the last run date.                                                     |
+| 2️⃣ | **Transformer: Build Request** — Constructs the Atom Feed request with the last run datetime using XSLT (`processor_36`).                                                     |
 | 3️⃣ | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.                                                                            |
 | 4️⃣ | **Content-Based Router** — Evaluates whether response contains new data:`<br>`– If **data exists**: go to file flow `<br>`– If **no data**: go to update path |
 | 5️⃣ | **Transformer: Format for File** — Maps Atom Feed response to flat file format (`processor_70`).                                                                              |
@@ -55,7 +55,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    | **Stop** — Ends the integration.                                                                                                                                                |
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI1NTA2NDEyNCwtMTE2MzAxNzEzNywzNj
-AwODM0NDIsLTEwNzgyNjA3MDUsLTExMTQ4NzY2NTEsLTYyMjE0
-NDcxMV19
+eyJoaXN0b3J5IjpbNDk4NDc5MTk0LDEyNTUwNjQxMjQsLTExNj
+MwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LC0xMTE0ODc2
+NjUxLC02MjIxNDQ3MTFdfQ==
 -->
