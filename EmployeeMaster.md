@@ -12,7 +12,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the designated SFTP locatio using FTP Adapter (`application_8.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using the Oracle HCM REST Adapter (`application_128`). |
-|     | **End**: Integration ends with a `stop` processor.                                                                                         |
+|    | **End**: Integration ends with a `stop` processor.                                                                                         |
 
 ---
 
@@ -35,5 +35,6 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 - **Error Handling**:
   Defined fault handlers (`APIInvocationError`) for both HCM Adapter and REST Adapter invocations.
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY3NTIwNTYyMCwtNjIyMTQ0NzExXX0=
+eyJoaXN0b3J5IjpbLTgyNzk0NTY4NiwxNjc1MjA1NjIwLC02Mj
+IxNDQ3MTFdfQ==
 -->
