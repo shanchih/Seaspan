@@ -14,7 +14,8 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 7 | **Transform for FTP Output**: Another transformer formats the staged file content for FTP upload.                         |
 | 8 | **Write to SFTP**: File is uploaded to the /HELM/outbound/EmpMaster/ using FTP Adapter.                                  |
 | 9 | **Invoke REST API (Optional)**: Optionally calls a REST API (`getEmpDetalisRest`) using Rest Invoke /hcmRestApi/resources/11.13.18.05/workers/.  <font color='red'>Review Needed!</font>
-| 10   | **Assign**: atomFeedLastRunDateTime = startTime                                                                       
+| 10   | **Assign**: atomFeedLastRunDateTime = startTime
+|    | **End**:                                                                         
 
 ## Additional Notes
 
@@ -36,7 +37,7 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
-This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.
+This OIC integration is designed to extract employee data (both new hires and updates) from Oracle HCM Cloud using Atom Feeds and deliver it to an SFTP location. The integration follows a scheduled approach with delta tracking capabilities.tate  tartie                                                                       
 
 ##  Integration Flow
 
@@ -59,11 +60,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjExMzUxOTcxLDEzMzAxNjIyNTUsLTIyMT
-YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
-OSwtMjA0OTY5Mjg0OSwxNDE0OTk5ODA3LDUyODExMTg4OSwxNz
-gyODM5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3OTkwLDE4MTU2MTYx
-NDksLTEwODk2NDU1ODMsODY3NTM0OTg2LDEyNTUwNjQxMjQsMT
-M0NzEzNjk0NSwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgy
-NjA3MDVdfQ==
+eyJoaXN0b3J5IjpbMTk3OTEwNTU0MSwyMTEzNTE5NzEsMTMzMD
+E2MjI1NSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDksLTIxMzI1MDM2
+NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MTQ5OTk4MDcsNT
+I4MTExODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEwNCwxMzI1NDc5
+OTAsMTgxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMT
+I1NTA2NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3MTM3LDM2MDA4
+MzQ0Ml19
 -->
