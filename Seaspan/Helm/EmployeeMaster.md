@@ -61,32 +61,31 @@ This OIC integration is designed to extract employee data (both new hires and up
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 
 ```mermaid
-A[Schedule Trigger] --> B[Transformer: Build Request]
-B --> C[Invoke HCM Adpater\nEmployee New Hire]
-C --> Get Integration Metadata]D{Router}
-```
-
-
-```mermaid 
 flowchart TD
-A[Schedule Trigger] --> B[Transformer: Build Request]
-B --> C[Invoke HCM Adpater\nEmployee New Hire]
-C --> Get Integration Metadata]D{Router}
-```
-
-```mermaid
-flowchart TD
-    A[Schedule Trigger] --> B[Transformer: Build Request]
-    B --> C[Invoke HCM Adpater\nEmployee New Hire]
-    C --> Get Integration Metadata]D{Router}
-
-
-```
+    A[Schedule Trigger] --> B[Get Integration Metadata]
+    B --> C[Transform Schedule Data]
+    C --> D[Invoke HCM Cloud\nEmployeeNewHireFeed]
+    D --> E{Content-Based Router}
+    
+    E --> |New Hire Path| F[Transform New Hire Data]
+    F --> G[Stage File]
+    G --> H[Transform File Data]
+    H --> I[Write File to FTP]
+    
+    E --> |Update Path| J[Transform Update Data]
+    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
+    
+    C --> L[Transform for REST]
+    L --> M[Invoke REST\nGet Employee Details]
+    
+    I --> N[Stop]
+    K --> N
+    M --> N
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3Nzg1MTExMzksMjc4ODQxOTk4LC0yND
-Q4NjI0NjQsMjExMzUxOTcxLC0yMjE2MjQ0NDksMTgzMDQxNTcw
-OSwtMjEzMjUwMzY2OSwzNDQwNzUxNjksLTIwNDk2OTI4NDksMT
-I2MTA1MDEwNCwxMzI1NDc5OTAsLTEwODk2NDU1ODMsMTI1NTA2
-NDEyNCwtMTE2MzAxNzEzNywzNjAwODM0NDIsLTEwNzgyNjA3MD
-UsLTExMTQ4NzY2NTEsLTYyMjE0NDcxMV19
+eyJoaXN0b3J5IjpbNDQ3OTE5MjA1LDI3ODg0MTk5OCwtMjQ0OD
+YyNDY0LDIxMTM1MTk3MSwtMjIxNjI0NDQ5LDE4MzA0MTU3MDks
+LTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5NjkyODQ5LDEyNj
+EwNTAxMDQsMTMyNTQ3OTkwLC0xMDg5NjQ1NTgzLDEyNTUwNjQx
+MjQsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC0xMDc4MjYwNzA1LC
+0xMTE0ODc2NjUxLC02MjIxNDQ3MTFdfQ==
 -->
