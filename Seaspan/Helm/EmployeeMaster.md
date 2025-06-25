@@ -17,6 +17,38 @@ This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** app
 | 10   | **Assign**: atomFeedLastRunDateTime = startTime
 |    | **End**:                                                                         
 
+```mermaid
+
+flowchart TD
+    Schedule[Schedule Trigger\n(ICSSchedule_1.xsd)]
+    TransformSchedule[Transform Request\n(atomFeedLastRunDateTime)]
+    GetNewHireFeed[Invoke Oracle HCM Cloud\n(EmployeeNewHireFeed)]
+    Router{Data Present?}
+    TransformStageFile[Transform for Stage File]
+    WriteStageFile[Write to Stage File]
+    TransformFTP[Transform for FTP Write]
+    WriteFTP[Write to SFTP Server]
+    OptionalREST[Optional REST Call\n(getEmpDetalisRest)]
+    Assignment[Set Variables / Tracking\n(atomFeedLastRunDateTime)]
+    Stop[End Integration]
+
+    Schedule --> TransformSchedule
+    TransformSchedule --> GetNewHireFeed
+    GetNewHireFeed --> Router
+    Router -- Yes --> TransformStageFile
+    TransformStageFile --> WriteStageFile
+    WriteStageFile --> TransformFTP
+    TransformFTP --> WriteFTP
+    Router -- No --> Stop
+    GetNewHireFeed --> OptionalREST
+    Schedule --> Assignment
+    Assignment --> TransformSchedule
+    WriteFTP --> Stop
+
+```
+
+
+
 ## Additional Notes
 
 - **`atomFeedLastRunDateTime`**:A schedule parameter used to track the last successful feed poll. Ensures only delta/new records are fetched.
@@ -60,7 +92,7 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk3OTEwNTU0MSwyMTEzNTE5NzEsLTIyMT
+eyJoaXN0b3J5IjpbLTk5MTg0MTc0OCwyMTEzNTE5NzEsLTIyMT
 YyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAzNjY5LDM0NDA3NTE2
 OSwtMjA0OTY5Mjg0OSwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwtMT
 A4OTY0NTU4MywxMjU1MDY0MTI0LC0xMTYzMDE3MTM3LDM2MDA4
