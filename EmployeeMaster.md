@@ -65,14 +65,13 @@ flowchart TD
     A[Schedule Trigger] --> B[Transformer:Build requestTransform euet]
      --> [Invoke HCM AdapterCloud\nEmployeeNewHireFeed]
     C --> D{Content-Based Router}
-    D --> E{Content-Based Router}
-    
-    E --> |New Hire Path| F[Transform New Hire Data]
+        
+     --> |EmployeeNew Hire PathFeed_Update > 0| F[Transform New Hire Data]
     F --> G[Stage File]
     G --> H[Transform File Data]
     H --> I[Write File to FTP]
     
-    E --> |Update Path| J[Transform Update Data]
+    E --> |Updath| J[Transform Update Data]
     J --> K[Invoke HCM \nEmployeeUpdateFeed]
     
     
@@ -118,7 +117,7 @@ sequenceDiagram
 
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTY3NjAzNzUwLC04NzYwMzc3NTQsMjc4OD
+eyJoaXN0b3J5IjpbMTM5MTQ3NzA4MCw5Njc2MDM3NTAsMjc4OD
 QxOTk4LC0yNDQ4NjI0NjQsLTEwOTU4NDM4NzIsMTk3OTEwNTU0
 MSwyMTEzNTE5NzEsMTMzMDE2MjI1NSwtMjIxNjI0NDQ5LDE4Mz
 A0MTU3MDksLTIxMzI1MDM2NjksMzQ0MDc1MTY5LC0yMDQ5Njky
