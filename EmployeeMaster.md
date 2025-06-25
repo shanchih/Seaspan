@@ -50,7 +50,7 @@ sequenceDiagram
     participant Assignment as Assignment
     participant HCMRest as Rest Adapter (getEmpDetalisRest)
 
-    Note over Scheduler: Scheduled Trigger (INT-29 HCM Extract)
+    Note over Scheduler: Scheduled Trigger
     Scheduler->>MessageTracker: Schedule Received (startTime tracking)
     activate MessageTracker
     MessageTracker-->>Scheduler: Tracking variables captured
@@ -132,11 +132,11 @@ This OIC integration is designed to extract employee data (both new hires and up
 |       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
 | 🔚    |  **Stop** — Ends the integration.                                                            |
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNTAxMTM0OTIsLTIxMzI1MDM2NjksMz
-Q0MDc1MTY5LC0yMDQ5NjkyODQ5LDE0MTQ5OTk4MDcsNTI4MTEx
-ODg5LDE3ODI4Mzk1MTIsMTI2MTA1MDEwNCwxMzI1NDc5OTAsMT
-gxNTYxNjE0OSwtMTA4OTY0NTU4Myw4Njc1MzQ5ODYsMTI1NTA2
-NDEyNCwxMzQ3MTM2OTQ1LC0xMTYzMDE3MTM3LDM2MDA4MzQ0Mi
-wtMTA3ODI2MDcwNSwxNDE1MzQ4ODE1LC0xMTE0ODc2NjUxLC04
-Mjc5NDU2ODZdfQ==
+eyJoaXN0b3J5IjpbMTgzMDQxNTcwOSwtMjEzMjUwMzY2OSwzND
+QwNzUxNjksLTIwNDk2OTI4NDksMTQxNDk5OTgwNyw1MjgxMTE4
+ODksMTc4MjgzOTUxMiwxMjYxMDUwMTA0LDEzMjU0Nzk5MCwxOD
+E1NjE2MTQ5LC0xMDg5NjQ1NTgzLDg2NzUzNDk4NiwxMjU1MDY0
+MTI0LDEzNDcxMzY5NDUsLTExNjMwMTcxMzcsMzYwMDgzNDQyLC
+0xMDc4MjYwNzA1LDE0MTUzNDg4MTUsLTExMTQ4NzY2NTEsLTgy
+Nzk0NTY4Nl19
 -->
