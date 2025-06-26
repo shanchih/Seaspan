@@ -41,73 +41,21 @@ This integration is designed to extract employee data (both new hires and update
 
 ##  Integration Flow
 
-## 🧭 Integration Steps
-
-| Step  | Flow Description                              |
-| ----- | -------------------------------------------------------------------------------------------------- |
-| 1 | **Schedule Trigger** — Triggered on a schedule. Captures `atomFeedLastRunDateTime` using message tracking.  |
-| 2 | **Transformer: Build Request** — Constructs the Atom Feed request using the last run datetime.           |
-|  | **HCM Adapter: Get Atom Feed** — Invokes `EmployeeNewHireFeed` to fetch new hires from Oracle HCM.      |
-| 4 | **Content-Based Router** — Evaluates whether response contains new data and routes accordingly:                                       |
-|       |  •**New HireData Exists**:  (EmployeeNewHireFeed_Update > 0)                                                                                 |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Maps Atom Feed response to flat file format.         |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Stage File** Writes transformed data to a temp file using Stage File Adapter.  |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer:** Formats the staged content for FTP upload.           |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **FTP Adapter:** Uploads the file to SFTP at `/HELM/outbound/EmpMaster/`.                  |
-|       | •**Otherwise**:                 
-|
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **Transformer: Prepare Request** — Constructs request to `getUpdateWorker` endpoint. |
-|       | &nbsp;&nbsp;&nbsp;&nbsp;– **HCM Adapter: getUpdateWorker** — Sends request to update worker metadata.                  |  **REST Adapter (Optional)** — Optionally calls REST API `getEmpDetalisRest` to fetch more worker info. (**Review if needed**) |
-| 🔚    |  **Stop** — Ends the integration.                                                            |
-
-```mermaid
-flowchart TD
-    A[Schedule Trigger] --> B[st]
-BGet Integration Metadata]
-    B --> C[Transform Schedule Data]
-    C --> CD[Invoke HCM AdpaterCloud\nEmployeeNewHire --> egration Metadata]D{Router}
-```
+1. Starts with a scheduled trigger : Tracking variables `startTime`
+2. Gets integration metadata
+3. Transforms request for HCM Cloud : Prepare HCM request
+4. Calls HCM Adpater to get new hire feed
+5. Routes the response:
+  - If new hires : Send to FTP
+    - Transforms data
+    - Stages files
+    - Transforms stage output
+    - Writes to FTP
+  - Otherwise:
+    - Transforms data
+    - Calls HCM Cloud Adpater `getUPdateWorker`
+6. Rest call to HCM using `getEmpDetailsRest` 
+7. Assign `atomFeedLastRunDateTime` = starttime for next scheduled execution
 
 
-```mermaid 
-flowchart TD
-A[Schedule Trigger]Feed]
-    D --> E{Content-Based Router}
-    
-    E --> |New Hire Path| F[Transform New Hire Data]
-    F --> G[Stage File]
-    G --> BH[Transformer: Build Reque --> [Transform]
-     --> [Invoke HCM \nEmployee New Hire]
-C --> Get Integration Metadata]D{Router}
-```
 
-```mermaid
-flowchart TD
-    A[Schedule Trigger] --> B[Get Integration Metadata]
-    B --> C[Transform Schedule Data]
-    C --> D[Invoke HCM Cloud\nEmployeeNewHireFeed]
-    D --> E{Content-Based Router}
-    
-    E --> |New Hire Path| F[Transform New Hire Data]
-    F --> G[Stage File]
-    G --> H[Transform File Data]
-    H --> I[Write File to FTP]
-    
-    E --> |Update Path| J[Transform Update Data]
-    J --> K[Invoke HCM Cloud\nEmployeeUpdateFeed]
-    
-    C --> L[Transform for REST]
-    L --> M[Invoke REST\nGet Employee Details]
-    
-    I --> N[Stop]
-    K --> N
-    M --> N```
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU1NzA5MDAxMywtMTE4NzQ3NzM4MCw3MT
-YzNTYzMTYsOTY3NjAzNzUwLDI3ODg0MTk5OCwtMjQ0ODYyNDY0
-LC0xMDk1ODQzODcyLDE5NzkxMDU1NDEsMjExMzUxOTcxLDEzMz
-AxNjIyNTUsLTIyMTYyNDQ0OSwxODMwNDE1NzA5LC0yMTMyNTAz
-NjY5LDM0NDA3NTE2OSwtMjA0OTY5Mjg0OSwxNDE0OTk5ODA3LD
-UyODExMTg4OSwxNzgyODM5NTEyLDEyNjEwNTAxMDQsMTMyNTQ3
-OTkwXX0=
--->
