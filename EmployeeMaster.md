@@ -56,7 +56,7 @@ This integration is designed to extract employee data (both new hires and update
 6. Rest call to HCM using `getEmpDetailsRest` ❗What is the purpose?
 7. Assign `atomFeedLastRunDateTime` = starttime for next scheduled execution
 
-# Name: IMOHCM27_EMPLOYEE_EMERGENCY_CONTACTS_HELM
+# IMOHCM27_EMPLOYEE_EMERGENCY_CONTACTS_HELM
 ## Overview
 This integration is designed to manage employee emergency contacts by extracting data from Oracle HCM Cloud, processing it, and synchronizing it with a HELM system (likely a third-party HR. It includes error handling, logging, and notifications for success or failure.
 - Extracts employee emergency contact data from Oracle HCM Cloud.
