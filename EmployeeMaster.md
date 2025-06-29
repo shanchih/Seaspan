@@ -229,3 +229,23 @@ This integration is designed to manage employee emergency contacts by extracting
 | Country               | `Canada` *(hardcoded)*    ❗                                                                                       | `Canada` *(hardcoded)*   ❗                                                                                        |
 | StateOrProvince       | `Extract_Contact_Address_Region3`                                                                                | `Extract_Contact_Address_Region3`                                                                                |
 | PostalZipCode         | `Extract_Contact_Postal_Code`                                                                                    | `Extract_Contact_Postal_Code`                                                                                    |
+
+# IMOHCM27_EMPLOYEE_MASTER_HELM
+## Overview
+The integration  utomates the synchronization of employee master data from Oracle HCM Cloud into the HELM system.
+- Triggers on a scheduled basis.
+- Reads employee changes from Oracle HCM Cloud via Atom Feeds and BI Publisher reports, capturing:
+  - new hires
+  - updates
+  - assignment changes
+  - terminations  
+
+Transforms the data into HELM’s required format using XSLT mappings.
+
+Loads the data into HELM through REST API calls.
+
+Writes output files to SFTP servers for archiving or downstream processing.
+
+Sends notifications to alert stakeholders of successes or errors.
+
+Tracks processing details for monitoring and auditing.
