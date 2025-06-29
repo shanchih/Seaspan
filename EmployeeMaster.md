@@ -276,8 +276,26 @@ The integration  utomates the synchronization of employee master data from Oracl
         - Create or Update User using Helm jobs/users/CreateOrUpdateUser (POST)
         - **Stage File** : stage record from BI report (If count(G_1) >0 ) 
          
+4. **For-Each Loop - Employee New Hire Records**
 
+   Repeating Element : 
+   ```xml
+    /EmployeeFeedResponse/EmployeeUpdateFeed_update
 
+   ```
+   **Detailed Steps**:
+   For each record:
+   ```xml
+   /EmployeeUpdateFeed_update/ChangedAttributes
+   ```
+     1. **stage file**: WriteEmpFile
+     2. **Invoke BI Report** : callEmployeeHELMRpt by Person Id
+     3. **Stage File**: write and read report
+     4. For reach G_1
+        - Invoke Helm jobs/users/FindUsers (GET) using EmployeeNumber
+        - Map Id from Helm
+        - Create or Update User using Helm jobs/users/CreateOrUpdateUser (POST)
+        - **Stage File** : stage record from BI report (If count(G_1) >0 ) 
 
    - - **Submit Extract Request**:
   - Transforms the request payload
