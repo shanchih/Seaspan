@@ -244,3 +244,30 @@ The integration  utomates the synchronization of employee master data from Oracl
 - Writes output files to SFTP servers for archiving or downstream processing.
 - Sends notifications to alert stakeholders of successes or errors.
 
+##  Integration Flow
+1. **Initialization**
+  - **Schedule Trigger**: The integration starts with a scheduled trigger with startTime as the tracking variable.
+  - **Metadata Setup**: Initializes phase variables like startTime, g_RiceId, g_FlowName, g_FromEmail, g_ToEmail, etc.
+  - **Stage File**: stage HeaderFile and EmpHeaderRec
+
+2. **Read Atom Feeds from HCM**
+   Four `parallel` Atom Feed adapters are configured:
+   - **AtomFeedEmpUpdate**
+   - **AtomFeedAssgnUpdate**
+   - **AtomFeedNewHire**
+   - **AtomFeedEmpTerminate**
+   These adapters:
+   - Query Atom Feeds to fetch incremental data since last run date (g_lastRunDate)
+
+
+
+
+   - - **Submit Extract Request**:
+  - Transforms the request payload
+  - Calls the HCM SOAP service to submit an extract request
+- **Poll for Extract Status**:
+  - Uses a while loop to periodically check the status of the extract. (g_FlowInstanceStatus = 'READY' or 'WAIT' or 'PAUSED' or 'RUNNING' ❗`Do we need READY?` )
+  - Waits and checks the status via Check Extract Status SOAP call.
+- **Download Extract**:
+  - Once the extract is ready, downloads the file from Oracle HCM Cloud.
+  - Assign sch_documentID = documentID and g_logFileName = concat('HELM_EmergencyContact_',instanceId,'.'csv')
