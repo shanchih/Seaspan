@@ -238,14 +238,9 @@ The integration  utomates the synchronization of employee master data from Oracl
   - new hires
   - updates
   - assignment changes
-  - terminations  
+  - terminations  ❗ This is missing!!
+- Transforms the data into HELM’s required format using XSLT mappings.
+- Loads the data into HELM through REST API calls.
+- Writes output files to SFTP servers for archiving or downstream processing.
+- Sends notifications to alert stakeholders of successes or errors.
 
-Transforms the data into HELM’s required format using XSLT mappings.
-
-Loads the data into HELM through REST API calls.
-
-Writes output files to SFTP servers for archiving or downstream processing.
-
-Sends notifications to alert stakeholders of successes or errors.
-
-Tracks processing details for monitoring and auditing.
