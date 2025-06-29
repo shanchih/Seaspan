@@ -238,7 +238,7 @@ The integration  utomates the synchronization of employee master data from Oracl
   - new hires
   - updates
   - assignment changes
-  - terminations  ❗ This is missing!!
+  - terminations  ❗ This is missing!! ❗
 - Transforms the data into HELM’s required format using XSLT mappings.
 - Loads the data into HELM through REST API calls.
 - Writes output files to SFTP servers for archiving or downstream processing.
@@ -258,7 +258,18 @@ The integration  utomates the synchronization of employee master data from Oracl
    - **AtomFeedEmpTerminate**
    These adapters:
    - Query Atom Feeds to fetch incremental data since last run date (g_lastRunDate)
+3. **For-Each Loop - Employee New Hire Records**
 
+   Repeating Element : 
+   ```xml
+    /EmployeeNewHireFeedResponse/EmployeeNewHireFeed_update
+
+   ```
+   **Detailed Steps**:
+   For each record:
+     1. **stage file**: WriteNewHire
+     2. **Invoke BI Report** : callEmployeeHELMRpt by Person Id 
+         
 
 
 
