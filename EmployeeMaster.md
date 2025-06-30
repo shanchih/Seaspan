@@ -130,7 +130,6 @@ This integration is designed to manage employee emergency contacts by extracting
 **Adapter**: `ORACLE_SOAP_HCM_EXTRACT`  
 **Operation**: `submitAndGetFlowInstanceId`  
 
-```
 🔴 I couldn't the find the Extract Definitions in DEV3 and DEV4.
 **Response**:
 - Success: Returns flowInstanceId for tracking
@@ -361,3 +360,27 @@ The integration  utomates the synchronization of employee master data from Oracl
 | UserDefined/AssignmentStatus    | `f10_Page/Page/UserDefined/AssignmentStatus`                           | Direct mapping                                                               |
 | UserDefined/TerminationDate     | `f11_ChangedAttributes` (when AttributeName="ActualTerminationDate")   | Uses changed value if exists, otherwise from `f10_Page` source               |
 | Division/Name                   | Static value                                                           | Always "Ferries"                                                             |
+
+
+# IMOHCM27_NON_MARINE_USERS_HELM
+## Overview
+The integration IMOHCM27_NON_MARINE_USERS_HELM orchestrates a process to extract user data for non-marine employees from Oracle HCM Cloud and transmit it to the HELM system.  🔴 How to distinquish non-marine employees
+  - Triggering an HCM extract via SOAP API 
+  - Monitoring the extract process using getFlowInstanceStatus
+  - Downloading the resulting file from Oracle HCM
+  - Mapping and transforming the data using XSLT to the HELM payload format
+  - Sending employee records to HELM through REST APIs 
+  - Handling success and error notifications via HELM endpoints
+  - Logging details to SFTP for audit or troubleshooting
+
+## mapping rules
+
+| Target Element          | Source                                                                 | Mapping Rule                                                                 |
+|-------------------------|-----------------------------------------------------------------------|------------------------------------------------------------------------------|
+| id                      | `$f1_Page/ns36:Page/ns36:Id`                                         | Only mapped if `$GetHELMEmployee/nsmpr1:executeResponse/ns36:response-wrapper/ns36:Data/ns36:TotalCount != 0` |
+| FirstName               | `$for_Each/nsmpr3:MAIN_DG/nsmpr3:EMPLOYEE_REC/nsmpr3:FirstName`      | Direct mapping from source to target.                                        |
+| LastName                | `$for_Each/nsmpr3:MAIN_DG/nsmpr3:EMPLOYEE_REC/nsmpr3:LastName`       | Direct mapping from source to target.                                        |
+| Email                   | `$for_Each/nsmpr3:MAIN_DG/nsmpr3:EMPLOYEE_REC/nsmpr3:Email`          | Direct mapping from source to target.                                        |
+| EmployeeNumber          | `$for_Each/nsmpr3:MAIN_DG/nsmpr3:EMPLOYEE_REC/nsmpr3:EmployeeNumber` | Direct mapping from source to target.                                        |
+| CanLogIn                | `$for_Each/nsmpr3:MAIN_DG/nsmpr3:EMPLOYEE_REC/nsmpr3:AssignmentStatus` | Set to `true` if AssignmentStatus is one of: "Leave of Absence – Payroll Eligible", "Active - Payroll Eligible", or "Inactive - Payroll Eligible"; otherwise `false`. |
+| CanLogInToShore         | `$for_Each/nsmpr3:MAIN_DG/
