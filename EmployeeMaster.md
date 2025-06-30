@@ -238,7 +238,7 @@ The integration  utomates the synchronization of employee master data from Oracl
   - new hires
   - updates
   - assignment changes
-  - terminations  ❗ This is missing!! ❗
+  - terminations 
 - Transforms the data into HELM’s required format using XSLT mappings.
 - Loads the data into HELM through REST API calls.
 - Writes output files to SFTP servers for archiving or downstream processing.
@@ -301,13 +301,22 @@ The integration  utomates the synchronization of employee master data from Oracl
            - Map Id from Helm
            - Create or Update User using Helm jobs/users/CreateOrUpdateUser (POST)
           
+5. **Employee Assignment Records**  ❗ (Alex) Implementation is not correct
+  - **Invoke BI Report** : callEmployeeHELMRpt by Person Id
+  - **Stage File**: write and read report
+  - For each G_1
+    - Get User /jobs/users/FindUsers
+      - If user exists, Update Helm /job/users/CreateOrUpdateUser via POST  
 
-   - - **Submit Extract Request**:
-  - Transforms the request payload
-  - Calls the HCM SOAP service to submit an extract request
-- **Poll for Extract Status**:
-  - Uses a while loop to periodically check the status of the extract. (g_FlowInstanceStatus = 'READY' or 'WAIT' or 'PAUSED' or 'RUNNING' ❗`Do we need READY?` )
-  - Waits and checks the status via Check Extract Status SOAP call.
-- **Download Extract**:
-  - Once the extract is ready, downloads the file from Oracle HCM Cloud.
-  - Assign sch_documentID = documentID and g_logFileName = concat('HELM_EmergencyContact_',instanceId,'.'csv')
+6. **For-Each Loop - Employee Termination Records**  
+
+   Repeating Element : 
+   ```xml
+    /EmployeeTerminationFeedResponse/EmployeeTerminationFeed_update
+
+   ```
+   **Detailed Steps**:
+   For each record:
+     1. **stage file**: stage termination file
+     2. **Invoke Helm API** : Get /jobs/users/FindUsers
+     3. **Invoke Helm API**: POST /job/users/CreateOrUpdateUser
