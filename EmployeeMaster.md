@@ -1,3 +1,32 @@
+
+# Integration Review Notes
+
+## MOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
+- **Status:** Not needed 
+
+## IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
+- **Status:** Not needed 
+
+## IMOHCM27_EMPLOYEE_EMERGENCY_CONTACTS_HELM
+- **Issue:** Should not be a separate integration
+- **Risk:** Race condition possible
+- **Improvement Needed:** Hardcoded country code 
+
+## IMOHCM27_EMPLOYEE_MASTER_HELM
+- **Issue:** Selection criteria not met
+- **Missing Mappings:** Key fields/rules (e.g., Payroll Class and Group) not implemented
+- **Data Issue:** Integration does not reload all user-defined fields
+- **Status:** New requirements currently being implemented
+
+## IMOHCM27_NON_MARINE_USERS_HELM
+- **Issue:** Selection criteria not met
+- **HCM Extract:** Unable to locate HCM extract definition in DEV4 and DEV3
+- **Missing Mappings:** Key fields/rules (e.g., Payroll Class and Group) not implemented
+
+
+
+
+
 # IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
 This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** approach to retrieve new hire data and write it to an SFTP location.
