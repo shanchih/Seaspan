@@ -346,3 +346,35 @@ The integration  utomates the synchronization of employee master data from Oracl
 
 
 
+| Target Element                          | Source                                                                 | Mapping Rule                                                                 |
+|-----------------------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| HTTPHeaders/API-Key                     | Static value                                                           | Hardcoded API key (redacted for security)                                    |
+| HTTPHeaders/Content-Type                | Static value                                                           | Always set to "application/json"                                             |
+| Id                                      | `getNewHireUser/executeResponse/response-wrapper/Data/Page/Id`         | Only mapped if value is not empty                                            |
+| FirstName                               | `forEach_G_1/G_1/FIRST_NAME`                                          | Direct mapping                                                               |
+| PreferredName                           | `forEach_G_1/G_1/PREFERRED_NAME`                                      | Direct mapping                                                               |
+| MiddleName                              | `forEach_G_1/G_1/MIDDLE_NAMES`                                        | Direct mapping                                                               |
+| LastName                                | `forEach_G_1/G_1/LAST_NAME`                                           | Direct mapping                                                               |
+| Email                                   | `forEach_G_1/G_1/WORK_EMAIL`                                          | Direct mapping                                                               |
+| EmployeeNumber                          | `forEach_G_1/G_1/PERSON_NUMBER`                                       | Direct mapping                                                               |
+| CellPhoneNumber                         | `forEach_G_1/G_1/USERCELLPHONENUMBER`                                 | Direct mapping                                                               |
+| CanLogIn                                | `forEach_G_1/G_1/CANLOGIN`                                            | Direct mapping                                                               |
+| IsActiveEmployee                        | `forEach_G_1/G_1/ISACTIVEEMPLOYEE`                                    | Direct mapping                                                               |
+| UserDefined/AssignmentNumber            | `forEach_G_1/G_1/ASSIGNMENT_NUMBER`                                   | Direct mapping                                                               |
+| UserDefined/AssignmentStatus            | Static value                                                           | Always set to "Active - Payroll Eligible"                                    |
+| UserDefined/CarriedDate                 | `forEach_G_1/G_1/CARRIEDDATEEIT`                                      | Only mapped if value is not empty                                            |
+| UserDefined/CategorySeniorityDate       | `forEach_G_1/G_1/ORIGINALHIREDATE`                                    | Only mapped if value is not empty                                            |
+| UserDefined/PersonCollectiveAgreement   | `forEach_G_1/G_1/COLLECTIVEAGREEMENT`                                 | Direct mapping                                                               |
+| UserDefined/EnteredServiceDate          | `forEach_G_1/G_1/ENTEREDSERVICEDATEEFF`                               | Only mapped if value is not empty                                            |
+| UserDefined/GradeStep                   | `forEach_G_1/G_1/GRADE_STEP_NAME`                                     | Direct mapping                                                               |
+| UserDefined/OvertimeBank                | `forEach_G_1/G_1/OT_BANK_ASG_DFF`                                     | Direct mapping                                                               |
+| UserDefined/ServiceSeniorityDate        | `forEach_G_1/G_1/SERVICESENIORITYDATEEFF`                             | Only mapped if value is not empty                                            |
+| UserDefined/Union                       | `forEach_G_1/G_1/UNIONEMP`                                            | Direct mapping                                                               |
+| UserDefined/VacationPaidOrAccrued       | `forEach_G_1/G_1/VACPAIDORACCR_ASG_DFF`                               | Direct mapping                                                               |
+| PayrollClassHistory/Upsert/EffectiveDate| Current timestamp                                                     | Formatted as YYYY-MM-DDTHH:MM:SS                                             |
+| PayrollClassHistory/Upsert/PayrollClass/Name | `forEach_G_1/G_1/PAYROLLCLASS`                                   | Direct mapping                                                               |
+| PayrollGroup/Name                       | `forEach_G_1/G_1/PAYROLLGROUP`                                        | Direct mapping                                                               |
+| Division/Name                           | `forEach_G_1/G_1/LEGAL_EMPLOYER`                                      | Direct mapping                                                               |
+| Positions/Name                          | `forEach_G_1/G_1/POSITION`                                            | Direct mapping                                                               |
+| Department/Name                         | `forEach_G_1/G_1/POSITION`                                            | Direct mapping (same as Positions/Name)                                      |
+
