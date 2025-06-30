@@ -320,3 +320,7 @@ The integration  utomates the synchronization of employee master data from Oracl
      1. **stage file**: stage termination file
      2. **Invoke Helm API** : Get /jobs/users/FindUsers
      3. **Invoke Helm API**: POST /job/users/CreateOrUpdateUser
+
+3585 : insertion into Helm
+3675: termination into Helm 
+3923: new hire into helm
