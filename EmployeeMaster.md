@@ -321,6 +321,8 @@ The integration  utomates the synchronization of employee master data from Oracl
      2. **Invoke Helm API** : Get /jobs/users/FindUsers
      3. **Invoke Helm API**: POST /job/users/CreateOrUpdateUser
 
-3585 : insertion into Helm
-3675: termination into Helm 
-3923: new hire into helm
+##  Mapping rules
+
+| **Source**                          | **Target**                                | **Mapping Rule**                                                                                     |
+|-------------------------------------|------------------------------------------|------------------------------------------------------------------------------------------------------|
+| `forEachEmp_G_1/G_1/PERSON_NUMBER`  | `QueryParameters/EmployeeNumber`         | The value of `PERSON_NUMBER` from the source is mapped to the `EmployeeNumber` in the target.        |
