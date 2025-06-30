@@ -378,3 +378,49 @@ The integration  utomates the synchronization of employee master data from Oracl
 | Positions/Name                          | `forEach_G_1/G_1/POSITION`                                            | Direct mapping                                                               |
 | Department/Name                         | `forEach_G_1/G_1/POSITION`                                            | Direct mapping (same as Positions/Name)                                      |
 
+
+| Target Element                          | Source                                                                 | Mapping Rule                                                                 |
+|-----------------------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| HTTPHeaders/API-Key                     | Static value                                                           | Hardcoded API key (redacted for security)                                    |
+| id                                      | `f9_Page/Page/Id`                                                     | Only mapped if value is not empty                                            |
+| FirstName                               | `forEachEmp_G_1/G_1/FIRST_NAME`                                       | When not empty, otherwise falls back to `f9_Page/Page/FirstName`             |
+| PreferredName                           | `forEachEmp_G_1/G_1/PREFERRED_NAME`                                   | When not empty, otherwise falls back to `f9_Page/Page/PreferredName`         |
+| MiddleName                              | `forEachEmp_G_1/G_1/MIDDLE_NAMES`                                     | When not empty, otherwise falls back to `f9_Page/Page/MiddleName`            |
+| LastName                                | `forEachEmp_G_1/G_1/LAST_NAME`                                        | When not empty, otherwise falls back to `f9_Page/Page/LastName`              |
+| Email                                   | `forEachEmp_G_1/G_1/WORK_EMAIL`                                       | When not empty, otherwise falls back to `f9_Page/Page/Email`                 |
+| EmployeeNumber                          | `forEachEmp_G_1/G_1/PERSON_NUMBER`                                    | Direct mapping                                                               |
+| CanLogIn                                | Static value                                                           | Always set to "yes"                                                          |
+| IsActiveEmployee                        | Static value                                                           | Always set to "yes"                                                          |
+| UserDefined/AssignmentNumber            | `forEachEmp_G_1/G_1/ASSIGNMENT_NUMBER`                                | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/AssignmentStatus            | `forEachEmp_G_1/G_1/ASSIGNMENT_STATUS`                                | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/PersonCollectiveAgreement   | `forEachEmp_G_1/G_1/COLLECTIVEAGREEMENT`                              | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/GradeStep                   | `forEachEmp_G_1/G_1/GRADE_STEP_NAME`                                  | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/MidMonthAdvance             | `forEachEmp_G_1/G_1/MIDMONTHADVANCE_DFF`                              | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/OvertimeBank                | `forEachEmp_G_1/G_1/OT_BANK_ASG_DFF`                                  | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/StatDayBank                 | Static value                                                           | Always set to "Y"                                                            |
+| UserDefined/Union                       | `forEachEmp_G_1/G_1/UNIONEMP`                                         | When not empty, otherwise falls back to `f9_Page` source                     |
+| UserDefined/UseMidMonthAdvanceOverride  | Static value                                                           | Always set to "false"                                                        |
+| UserDefined/VacationPaidOrAccrued       | `forEachEmp_G_1/G_1/VACPAIDORACCR_ASG_DFF`                            | When not empty, otherwise falls back to `f9_Page` source                     |
+| Division/Name                           | Static value                                                           | Always set to "Ferries"                                                      |
+
+
+
+| Target Element                  | Source                                                                 | Mapping Rule                                                                 |
+|---------------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| HTTPHeaders/API-Key             | Static value                                                           | Hardcoded API key (redacted)                                                 |
+| HTTPHeaders/Content-Type        | Static value                                                           | Always "application/json"                                                    |
+| id                              | `f10_Page/Page/Id`                                                    | Only if value exists                                                         |
+| FirstName                       | `f11_ChangedAttributes` (when AttributeName="FirstName")               | Uses changed value if exists, otherwise falls back to `f10_Page/Page/FirstName` |
+| PreferredName                   | `f11_ChangedAttributes` (when AttributeName="KnownAs")                 | Uses changed value if exists, otherwise falls back to `f10_Page/Page/PreferredName` |
+| MiddleName                      | `f11_ChangedAttributes` (when AttributeName="MiddleNames")             | Uses changed value if exists, otherwise falls back to `f10_Page/Page/MiddleName` |
+| LastName                        | `f11_ChangedAttributes` (when AttributeName="LastName")                | Uses changed value if exists, otherwise falls back to `f10_Page/Page/LastName` |
+| Email                           | `f11_ChangedAttributes` (when AttributeName="WorkEmail")               | Uses changed value if exists, otherwise falls back to `f10_Page/Page/Email`  |
+| EmployeeNumber                  | `f6_EmployeeTerminationFeed_Update/EmployeeTerminationFeed_Context/PersonNumber` | Direct mapping                                                      |
+| CanLogIn                        | Static value                                                           | Always "false"                                                               |
+| CanLogInToBoat                  | Static value                                                           | Always "false"                                                               |
+| CanLogInToShore                 | Static value                                                           | Always "false"                                                               |
+| IsActiveEmployee                | Based on termination date                                              | "false" if termination date exists in changes, otherwise "true"              |
+| UserDefined/AssignmentNumber    | `f10_Page/Page/UserDefined/AssignmentNumber`                           | Direct mapping                                                               |
+| UserDefined/AssignmentStatus    | `f10_Page/Page/UserDefined/AssignmentStatus`                           | Direct mapping                                                               |
+| UserDefined/TerminationDate     | `f11_ChangedAttributes` (when AttributeName="ActualTerminationDate")   | Uses changed value if exists, otherwise from `f10_Page` source               |
+| Division/Name                   | Static value                                                           | Always "Ferries"                                                             |
