@@ -323,6 +323,26 @@ The integration  utomates the synchronization of employee master data from Oracl
 
 ##  Mapping rules
 
-| **Source**                          | **Target**                                | **Mapping Rule**                                                                                     |
-|-------------------------------------|------------------------------------------|------------------------------------------------------------------------------------------------------|
-| `forEachEmp_G_1/G_1/PERSON_NUMBER`  | `QueryParameters/EmployeeNumber`         | The value of `PERSON_NUMBER` from the source is mapped to the `EmployeeNumber` in the target.        |
+
+| Target Element          | Source                                                                 | Mapping Rule                                                                 |
+|-------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| id                      | `getRecords/executeResponse/response-wrapper/Data/Page/Id`             | Only mapped if `TotalCount > 0`                                              |
+| FirstName               | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="FirstName"` exists with a `NewValue`                    |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/FirstName`      | Fallback when no FirstName change is detected                                |
+| PreferredName           | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="KnownAs"` exists with a `NewValue`                      |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/PreferredName`  | Fallback when no KnownAs change is detected                                  |
+| MiddleName              | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="MiddleNames"` exists with a `NewValue`                  |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/MiddleName`     | Fallback when no MiddleNames change is detected                              |
+| LastName                | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="LastName"` exists with a `NewValue`                     |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/LastName`       | Fallback when no LastName change is detected                                 |
+| Email                   | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="WorkEmail"` exists with a `NewValue`                    |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/Email`          | Fallback when no WorkEmail change is detected                                |
+| EmployeeNumber          | `f0_EmployeeUpdateFeed_Update/EmployeeUpdateFeed_Context/PersonNumber` | Direct mapping                                                               |
+| CellPhoneNumber         | `f1_EmpUpdateChangedAttributes/ChangedAttributes/NewValue`             | When `AttributeName="PhoneNumber"` exists with a `NewValue`                  |
+|                         | `getRecords/executeResponse/response-wrapper/Data/Page/CellPhoneNumber`| Fallback when no PhoneNumber change is detected                              |
+| CanLogIn                | Static value                                                           | Always set to "true"                                                         |
+| IsActiveEmployee        | Static value                                                           | Always set to "true"                                                         |
+| Division/Name           | Static value                                                           | Always set to "Ferries"                                                      |
+
+
+
