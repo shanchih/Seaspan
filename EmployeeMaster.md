@@ -1,4 +1,4 @@
-# IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUTMAST_OUT_HCMEXTRACT
+# IMOHCM27_HELM_HCM_EMPLOYEE_MASTER_OUT
 ## Overview
 This OIC integration is **scheduled** and uses the **HCM Extract Atom Feed** approach to retrieve new hire data and write it to an SFTP location.
 
@@ -124,53 +124,12 @@ This integration is designed to manage employee emergency contacts by extracting
 1. Error responses use `APIInvocationError` format
 
 
-## Phase Variables
-
-| Variable Name            | Type    | Purpose |
-|--------------------------|---------|---------|
-| `startTime`              | Tracking | Timestamp when integration started |
-| `g_RiceId`               | String  | Unique identifier for the integration process |
-| `g_FlowName`             | String  | Name of the integration flow |
-| `g_FromEmail`            | String  | Sender email for notifications |
-| `g_ToEmail`              | String  | Recipient email for notifications |
-| `g_Desc`                 | String  | Description of the integration |
-| `g_Instance`             | String  | Instance identifier (environment-specific) |
-| `g_EffectiveDate`        | String  | Date for data processing |
-| `g_IntegrationName`      | String  | Name of the integration |
-| `g_IntegrationTimeStamp` | String  | Timestamp for integration execution |
-| `g_FlowInstanceStatus`   | String  | Status of the flow instance (e.g., "IN_PROGRESS") |
-| `g_Process_ID`           | String  | Process ID for tracking |
-| `g_OutboundDirectory`    | String  | File path for output logs/extracts |
-| `g_FileName`             | String  | Name of the extracted file |
-| `g_SuccessCount`         | String  | Counter for successful operations |
-| `g_ErrorCount`           | String  | Counter for failed operations |
-| `g_TotalCount`           | String  | Total records to process |
-| `g_SendDataToHELM`       | String  | Flag to determine if data should be sent to HELM |
-| `g_Status`               | String  | Current status of the integration |
-| `g_Message`              | String  | Status or error message |
-| `g_logFileName`          | String  | Name of the log file |
-| `sch_documentID`         | String  | Document ID for scheduling |
-
 ## SOAP Invocations to HCM
 ### 1. Submit Extract Request
 **Purpose**: Initiate data extraction job for emergency contacts  
 **Adapter**: `ORACLE_SOAP_HCM_EXTRACT`  
 **Operation**: `submitAndGetFlowInstanceId`  
-**Request Structure**:
-```xml
-<soap:Envelope>
-  <soap:Body>
-    <ns2:submitAndGetFlowInstanceId>
-      <ns2:OutboundSOAPRequestDocument>
-        <extractName>EMERGENCY_CONTACTS_EXTRACT</extractName>
-        <parameters>
-          <effectiveDate>{g_EffectiveDate}</effectiveDate>
-          <processId>{g_Process_ID}</processId>
-        </parameters>
-      </ns2:OutboundSOAPRequestDocument>
-    </ns2:submitAndGetFlowInstanceId>
-  </soap:Body>
-</soap:Envelope>
+
 ```
 🔴 I couldn't the find the Extract Definitions in DEV3 and DEV4.
 **Response**:
@@ -181,18 +140,7 @@ This integration is designed to manage employee emergency contacts by extracting
 **Purpose**: Poll extraction job status
 **Adapter**: ORACLE_SOAP_HCM_EXTRACT
 **Operation**: getIntegrationContentId
-**Request Structure**:
-```xml
-<soap:Envelope>
-  <soap:Body>
-    <ns2:getIntegrationContentId>
-      <ns2:OutboundSOAPRequestDocument>
-        <flowInstanceId>{g_FlowInstanceStatus}</flowInstanceId>
-      </ns2:OutboundSOAPRequestDocument>
-    </ns2:getIntegrationContentId>
-  </soap:Body>
-</soap:Envelope>
-```
+
 **Status Values**:
 - `COMPLETED`: Ready for download
 - `IN_PROGRESS`: Continue polling
@@ -202,17 +150,6 @@ This integration is designed to manage employee emergency contacts by extracting
 **Purpose**: Retrieve generated data file
 **Adapter**: ORACLE_HCMCLOUD
 **Operation**: GetFile
-**Request Structure**:
-```xml
-<soap:Envelope>
-  <soap:Body>
-    <ns2:GetFile>
-      <ns2:documentId>{sch_documentID}</ns2:documentId>
-      <ns2:fileName>{g_FileName}</ns2:fileName>
-    </ns2:GetFile>
-  </soap:Body>
-</soap:Envelope>
-```
 **Response**:
 - CSV/XML file containing employee emergency contacts
 
