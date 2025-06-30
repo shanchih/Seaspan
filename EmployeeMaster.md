@@ -19,9 +19,9 @@
 - **Status:** New requirements currently being implemented
 
 ## IMOHCM27_NON_MARINE_USERS_HELM
-- **Issue:** Selection criteria not met
+- **Issue:** Selection criteria not met?
 - **HCM Extract:** Unable to locate HCM extract definition in DEV4 and DEV3
-- **Missing Mappings:** Key fields/rules (e.g., Payroll Class and Group) not implemented
+
 
 
 
