@@ -7,13 +7,14 @@ The HELM payroll integration involves sending full payroll batches in JSON forma
 * HELM **must resend the entire batch** even if only a few records are bad
 * There is **no callback mechanism** from Oracle to HELM
 * HDL supports **partial success** and **silent acceptance of duplicate records**
-* **No costing API** 
+* **No Oracle costing API** 
 
 The recommended strategy is:
 
 * **Always send the full batch** to HDL, even if some records contain errors
 * **Use HDL as the authoritative validation engine** , relying on its native eligibility, costing, and business rules
 * **Parse and report errors** from HDL Load Results to the payroll team for reconciliation
+* Only implement supplement error handling in OIC to compensate custom validation logic which is missing from application
 
 ---
 
