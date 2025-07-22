@@ -1,60 +1,37 @@
-# HDL Error Handling Strategy for HELM Payroll Integration
+# HDL Error Handling Strategy for Payroll Integration
 
 ## 1. Recommended Strategy
 
-The HELM payroll integration involves sending full payroll batches in JSON format to Oracle Integration Cloud (OIC), which transforms and loads the data into Oracle HCM via HCM Data Loader (HDL). Due to the following business constraints:
+The payroll integration involves sending full payroll batches in JSON format(Helm) or file format (Replicon) to Oracle Integration Cloud (OIC), which transforms and loads the data into Oracle HCM via HCM Data Loader (HDL). Due to the following business constraints:
 
-* HELM **must resend the entire batch** even if only a few records are bad
-* There is **no callback mechanism** from Oracle to HELM
-* HDL supports **partial success** and **silent acceptance of duplicate records**
+* Boundary systems **must resend the entire batch** even if only a few records are bad
+* There is **no callback mechanism** from the boundary systems
 * **No Oracle costing API** 
 
 The recommended strategy is:
 
 * **Always send the full batch** to HDL, even if some records contain errors
 * **Use HDL as the authoritative validation engine** , relying on its native eligibility, costing, and business rules
-* **Parse and report errors** from HDL Load Results to the payroll team for reconciliation
-* Only implement supplement error handling in OIC to compensate custom validation logic which is missing from application
+* **Parse and report errors** common utility to picks the generated HDL zip file and calls import and load HDL process. It also generates BI report based on process Id and send notification for success and error scenarios. 
 
 ---
 
 ## 2. End-to-End Flow
 
-1. **Receive** full JSON payroll batch from HELM
-2. **Acknowledge receipt** to HELM (no validation feedback provided)
-3. **Enrich and transform** :
 
-* Lookup AssignmentNumber using employee ID and effective date
-* Map JSON fields to HDL format (ElementEntryWithCosting)
-
-1. **Generate full .dat file** — include all records
-2. **Submit HDL batch**
-3. **Monitor load result** :
-
-* Poll HDL job status
-* Retrieve `.log` and `.err` files
-
-1. **Summarize errors** :
-
-* Total records, success/failure count
-* Sample top error messages
-
-1. **Notify payroll team** via email/slack (no callback to HELM)
-2. **Archive** JSON input, HDL file, and HDL logs for audit/resubmission
 
 ---
 
-## 3. Pre-Validation vs Post-Validation Comparison
+## 3. OIC Validation vs FBDI/HDL-Validation Comparison
 
-| **Aspect**             | **Pre-validation in OIC**                        | **Post-validation in HDL**                                    |
+| **Aspect**             | **OIC Validation**                        | **HDL validation**                                    |
 | ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
-| **Location**           | Logic built in OIC before submission                   | Let HDL perform validations internally                              |
+| **Location**           | Logic built in OIC before submission                   | Let FBDI perform validations internally                              |
 | **Performance**        | Slower (lookup-heavy, 30K+ records)                    | Faster bulk submission                                              |
-| **Complexity**         | Requires complex logic and maintenance in OIC          | Simpler flows; relies on HDL rules                                  |
+| **Complexity**         | Requires complex logic and maintenance in OIC          | Simpler flows; relies on HDL/FBDI rules                                  |
 | **Accuracy**           | Limited; can't enforce full HCM rules                  | Full validation including costing, eligibility, flexfields          |
-| **Partial Success**    | Cannot filter or reject in OIC due to HELM constraints | HDL supports partial success                                        |
-| **Retry Handling**     | N/A — full batch sent anyway                          | Retry based on HDL Load Results                                     |
-| **Error Traceability** | Requires custom error handling in OIC                  | HDL provides `.err`,`.log`, and structured Load Results reports |
+| **Partial Success**    | Should not filter or reject in OIC | HDL supports partial success                                        |
+
 
 ---
 
@@ -94,7 +71,7 @@ The recommended strategy is:
 
 | **Concern Area**  | **Con of Pre-validation in OIC**                                             | **Impact**                                                                       |
 | ----------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Business Logic Accuracy | OIC cannot fully replicate eligibility, costing, or payroll configuration logic    | Risk of false results; HDL will still reject or allow based on actual rules            |
+| Business Logic Accuracy | OIC cannot fully replicate validation  logic    | Risk of false results; HDL will still reject or allow based on actual rules            |
 | Maintainability         | Validation rules must be custom-coded and updated separately from HCM              | High cost and effort to keep logic in sync with HCM                                    |
 | Performance             | Pre-validating 30,000+ records with lookups is resource-intensive                  | May cause timeouts, slow runs, or unnecessary retries                                  |
 | Incomplete Detection    | OIC can't detect HDL-specific issues like DFF context violations                   | False sense of data quality; failures still happen in HDL                              |
