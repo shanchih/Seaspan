@@ -10,13 +10,19 @@ The payroll integration involves sending full payroll batches in JSON format(Hel
 
 The recommended strategy is:
 
-* **Always send the full batch** to HDL, even if some records contain errors
+* Reject payload if not able to identify unique active assignment numbers otherwise **always send the full batch** to HDL, even if some records contain errors such as incorrect elementname
+  * How OIC notifiy the boundary system? through email?
 * **Use HDL as the authoritative validation engine** , relying on its native eligibility, costing, and business rules
-* Use a common utility (OIC_HCM_LOAD_IMPORT_DATA integration). This includes:
-  * Picking up the generated HDL zip file
-  * Invoking the HDL import and load process
-  * Monitoring the process and generating a BI report based on the process ID
-  * Sending notifications for both success and error scenarios
+* Use a common utility (OIC_HCM_LOAD_IMPORT_DATA integration) : This includes 
+    * Picking up the generated HDL zip file
+    * Invoking the HDL import and load process
+    * Monitoring the process and generating a BI report based on the process ID
+    * Sending notifications for both success and error scenarios
+* Use ATP table for error tracking (target for SIT2). This includes 
+  * integration ID 
+  * instance ID 
+  * error message 
+  
 
 ---
 
@@ -32,7 +38,7 @@ The recommended strategy is:
 | **Performance**     | Slower (lookup-heavy, 30K+ records)           | Faster bulk submission                                     |
 | **Complexity**      | Requires complex logic and maintenance in OIC | Simpler flows; relies on HDL/FBDI rules                    |
 | **Accuracy**        | Limited; can't enforce full HCM rules         | Full validation including costing, eligibility, flexfields |
-| **Partial Success** | Should not filter or reject in OIC            | HDL supports partial success                               |
+| **Partial Success** | Should not filter or reject in OIC (reject payroll if not able to find assignment number) ?          | HDL supports partial success                               |
 
 ---
 
@@ -50,25 +56,27 @@ The recommended strategy is:
 
 | **Category**  | **Sample Error Message**                                 | **Cause**                                    | **Resolution**                                         |
 | ------------------- | -------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
-| Reference Error     | You must enter a valid assignment number.                      | AssignmentNumber not found or inactive.            | Use a valid, active assignment number.                       |
-| Reference Error     | The element name is invalid or does not exist.                 | ElementName is invalid or not assigned to the LDG. | Use an active, eligible element for the LDG.                 |
-| Reference Error     | The input value name is not valid for the element.             | Invalid or misspelled input name.                  | Match input names to the element’s configuration.           |
-| Reference Error     | The legal employer is invalid.                                 | LegalEmployerName is missing or incorrect.         | Confirm the legal employer in HCM.                           |
-| Date Error          | You must enter a valid entry effective start date.             | Date missing or outside assignment bounds.         | Align dates with the employee's assignment.                  |
-| Date Error          | The costing date is outside the element entry effective dates. | Costing date misaligned with entry dates.          | Match costing and entry dates.                               |
-| Costing Error       | The account combination is invalid.                            | Invalid chart of accounts segment values.          | Validate the full account combination in GL setup.           |
-| Costing Error       | You must specify a costing account for all levels.             | Required costing levels are missing.               | Include all necessary levels (e.g., Payroll, Org).           |
-| Costing Error       | No costing rule defined for the assignment.                    | Costing is not set for the assignment or payroll.  | Ensure costing rules are set in HCM setup.                   |
-| Business Rule Error | The element is not eligible for the employee's assignment.     | Element is not available to the assignment.        | Adjust element eligibility.                                  |
-| Business Rule Error | The input value is required.                                   | Mandatory input (e.g., Pay Value) is missing.      | Provide all required input values.                           |
-| Business Rule Error | You can't create overlapping entries for this element.         | Entry already exists with overlapping date.        | Avoid overlapping dates for the same element and assignment. |
-| Business Rule Risk  | *No error – duplicate entries are silently accepted*        | Same employee, element, and date repeated.         | Payroll team must catch duplicates manually after load.      |
-| Miscellaneous Error | The component ElementEntryId is required.                      | Updating without ElementEntryId.                   | Include ElementEntryId for updates.                          |
-| Miscellaneous Error | The context combination is invalid.                            | DFF values missing or invalid.                     | Ensure required context values are passed.                   |
+| Reference Error     | You must enter a valid assignment number.                      | AssignmentNumber not found or inactive.            | Rejects payload.                       |
+| Reference Error     | The element name is invalid or does not exist.                 | ElementName is invalid | Business process                 |
+| Reference Error     | The input value name is not valid for the element.             | Invalid or misspelled input name.                  | Business Process           |
+| Business Rule Error | The element is not eligible for the employee's assignment.     | Element is not available to the assignment.        | Business Process                                  |
+| Business Rule Error | The input value is required.                                   | Mandatory input (e.g., Pay Value) is missing.      | Business Process                         |
+| Business Rule Risk  | *No error – duplicate entries are silently accepted*        | Same employee, element, and date repeated.         | Business Process      |
 
 ---
 
-## 6. Cons of Pre-validation in OIC
+## 7. Business Process
+* Review error reports and process records
+* Take corrective action based on the issue:
+  - if resolvable in Oracle (e.g., missing configuration)
+    - For issues affecting a small number of employees (<50>), the business team can manually update records in Oracle
+    - For larger-scale issues, request the Seaspan tech team to roll back and reprocess the entire payroll
+  - If the issue originates from Helm (e.g., duplicate entries or incorrect calculations):
+    - Notify the Seaspan tech team to roll back the payroll
+    - Escalate to Helm to reprocess and resend the entire payroll
+
+
+## 8. Cons of Pre-validation in OIC
 
 | **Concern Area**  | **Con of Pre-validation in OIC**                                             | **Impact**                                                            |
 | ----------------------- | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
