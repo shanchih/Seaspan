@@ -11,7 +11,7 @@ The payroll integration involves sending full payroll batches in JSON format(Hel
 The recommended strategy is:
 
 * Reject payload if not able to identify unique active assignment numbers otherwise **always send the full batch** to HDL, even if some records contain errors such as incorrect elementname
-  * How OIC notifiy the boundary system? through email?
+  * OIC sends error notification via email (given no callback API)
 * **Use HDL as the authoritative validation engine** , relying on its native eligibility, costing, and business rules
 * Use a common utility (OIC_HCM_LOAD_IMPORT_DATA integration) : This includes
   * Picking up the generated HDL zip file
@@ -22,6 +22,7 @@ The recommended strategy is:
   * integration ID
   * instance ID
   * error message
+* Use Object Storage for large payload and BI reports (TBD)
 
 ---
 
@@ -29,12 +30,12 @@ The recommended strategy is:
 
 **Payroll Batch Submission**
 
-* Full payroll batch is submitted in JSON (Helm) or file format (Replcion)
+* Full batch is submitted in JSON (Helm) or file format (Replcion)
   * File format (Replicon) :
-    * Submitted via SFTP in one file with payroll and workorder or payroll with project
+    * Submitted via SFTP in one file (payroll/work order or payroll/project)
   * JSON payload (Helm) :
     * Three submission options
-      1. Send payload directly to Object Storage which triggers OIC integration (POC required)
+      1. Send payload directly to Object Storage which triggers OIC integration (POC required; recommended)
       2. Send payload to OIC, which stores it in:
          * Object Storage or
          * SFTP
@@ -52,7 +53,7 @@ The recommended strategy is:
   * Transform the data into HDL-compatible format.
   * Generate an HDL zip file.
 
-**`OIC_HCM_LOAD_IMPORT_DATA` Integration**
+**OIC_HCM_LOAD_IMPORT_DATA Integration**
 
 * Pick up the generated HDL zip file.
 * Invoke the HDL import and load process in Oracle HCM.
@@ -64,7 +65,7 @@ The recommended strategy is:
 * **Error Handling** :
 
   * Store the error report in Object Storage. (target for SIT2)
-  * Log error details in the ATP table. (target for SIT2)
+  * Log high level error details in the ATP table. (target for SIT2)
 
 ---
 
@@ -108,7 +109,7 @@ The recommended strategy is:
 * Review error reports and process records
 * Take corrective action based on the issue:
   - if resolvable in Oracle (e.g., missing configuration)
-    - For issues affecting a small number of employees (<50>), the business team can manually update records in Oracle
+    - For issues affecting a small number of employees (<50), the business team can manually update records in Oracle
     - For larger-scale issues, request the Seaspan tech team to roll back and reprocess the entire payroll
   - If the issue originates from Helm (e.g., duplicate entries or incorrect calculations):
     - Notify the Seaspan tech team to roll back the payroll
@@ -123,7 +124,7 @@ The recommended strategy is:
 | Performance             | Pre-validating 30,000+ records with lookups is resource-intensive                  | May cause timeouts, slow runs, or unnecessary retries                       |
 | Incomplete Detection    | OIC can't detect HDL-specific issues like DFF context violations                   | False sense of data quality; failures still happen in HDL                   |
 | Complexity              | Adds control logic, conditional branches, and error checks to OIC                  | Harder to maintain, test, and trace integration flows                       |
-| No Added Benefit        | OIC cannot reject bad records anyway – must send full batch per HELM requirements | Extra work with no downstream benefit                                       |
+| No Added Benefit        | OIC cannot reject bad records anyway – must send full batch to HDL | Extra work with no downstream benefit                                       |
 | Duplicate Entry Risk    | OIC cannot access HCM history to detect prior entries                              | Duplicates silently accepted by HDL, causing risk of double pay             |
 | No Callback API         | No Callback API for sending validation results back to the boundary systems        | Pre-validation errors must be handled via logging or manual communication   |
-| Full Batch Resend       | HELM must resend full file even for 1–2 bad records                               | Pre-validation adds complexityValidation:                                   |
+| Full Batch Resend       | HELM must resend full file even for 1–2 bad records                               | Pre-validation adds additional complexity                                   |
