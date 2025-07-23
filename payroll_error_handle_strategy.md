@@ -13,32 +13,70 @@ The recommended strategy is:
 * Reject payload if not able to identify unique active assignment numbers otherwise **always send the full batch** to HDL, even if some records contain errors such as incorrect elementname
   * How OIC notifiy the boundary system? through email?
 * **Use HDL as the authoritative validation engine** , relying on its native eligibility, costing, and business rules
-* Use a common utility (OIC_HCM_LOAD_IMPORT_DATA integration) : This includes 
-    * Picking up the generated HDL zip file
-    * Invoking the HDL import and load process
-    * Monitoring the process and generating a BI report based on the process ID
-    * Sending notifications for both success and error scenarios
-* Use ATP table for error tracking (target for SIT2). This includes 
-  * integration ID 
-  * instance ID 
-  * error message 
-  
+* Use a common utility (OIC_HCM_LOAD_IMPORT_DATA integration) : This includes
+  * Picking up the generated HDL zip file
+  * Invoking the HDL import and load process
+  * Monitoring the process and generating a BI report based on the process ID
+  * Sending notifications for both success and error scenarios
+* Use ATP table for error tracking (target for SIT2). This includes
+  * integration ID
+  * instance ID
+  * error message
 
 ---
 
 ## 2. End-to-End Flow
 
+**Payroll Batch Submission**
+
+* Full payroll batch is submitted in JSON (Helm) or file format (Replcion)
+  * File format (Replicon) :
+    * Submitted via SFTP in one file with payroll and workorder or payroll with project
+  * JSON payload (Helm) :
+    * Three submission options
+      1. Send payload directly to Object Storage which triggers OIC integration (POC required)
+      2. Send payload to OIC, which stores it in:
+         * Object Storage or
+         * SFTP
+
+**OIC Integration: Split (Replicon only),lookup and convert**
+
+* **Validation** :
+
+  * Reject the payload if unable to identify a unique active assignment number.
+    * For Replicon: TBD
+  * Log rejection details in the ATP table for traceability.
+  * Send rejection notification via email (since no callback API exists).
+* **Transformation** :
+
+  * Transform the data into HDL-compatible format.
+  * Generate an HDL zip file.
+
+**`OIC_HCM_LOAD_IMPORT_DATA` Integration**
+
+* Pick up the generated HDL zip file.
+* Invoke the HDL import and load process in Oracle HCM.
+* Monitor the process and generate a BI report based on the process ID.
+* **Notifications** :
+
+  * Send success/error notifications via email.
+  * For errors, include a link to the error report or attach it.
+* **Error Handling** :
+
+  * Store the error report in Object Storage. (target for SIT2)
+  * Log error details in the ATP table. (target for SIT2)
+
 ---
 
 ## 3. OIC Validation vs HDL-Validation Comparison
 
-| **Aspect**          | **OIC Validation**                      | **HDL validation**                                   |
-| ------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
-| **Location**        | Logic built in OIC before submission          | validation handled internally by HDL                       |
-| **Performance**     | Slower (lookup-heavy, 30K+ records)           | Faster bulk submission                                     |
-| **Complexity**      | Requires complex logic and maintenance in OIC | Simpler flows; relies on HDL/FBDI rules                    |
-| **Accuracy**        | Limited; can't enforce full HCM rules         | Full validation including costing, eligibility, flexfields |
-| **Partial Success** | Should not filter or reject in OIC (reject payroll if not able to find assignment number) ?          | HDL supports partial success                               |
+| **Aspect**          | **OIC Validation**                                                                    | **HDL validation**                                   |
+| ------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| **Location**        | Logic built in OIC before submission                                                        | validation handled internally by HDL                       |
+| **Performance**     | Slower (lookup-heavy, 30K+ records)                                                         | Faster bulk submission                                     |
+| **Complexity**      | Requires complex logic and maintenance in OIC                                               | Simpler flows; relies on HDL/FBDI rules                    |
+| **Accuracy**        | Limited; can't enforce full HCM rules                                                       | Full validation including costing, eligibility, flexfields |
+| **Partial Success** | Should not filter or reject in OIC (reject payroll if not able to find assignment number) ? | HDL supports partial success                               |
 
 ---
 
@@ -54,18 +92,19 @@ The recommended strategy is:
 
 ## 5. Common HDL Errors
 
-| **Category**  | **Sample Error Message**                                 | **Cause**                                    | **Resolution**                                         |
-| ------------------- | -------------------------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------ |
-| Reference Error     | You must enter a valid assignment number.                      | AssignmentNumber not found or inactive.            | Rejects payload.                       |
-| Reference Error     | The element name is invalid or does not exist.                 | ElementName is invalid | Business process                 |
-| Reference Error     | The input value name is not valid for the element.             | Invalid or misspelled input name.                  | Business Process           |
-| Business Rule Error | The element is not eligible for the employee's assignment.     | Element is not available to the assignment.        | Business Process                                  |
-| Business Rule Error | The input value is required.                                   | Mandatory input (e.g., Pay Value) is missing.      | Business Process                         |
-| Business Rule Risk  | *No error – duplicate entries are silently accepted*        | Same employee, element, and date repeated.         | Business Process      |
+| **Category**  | **Sample Error Message**                             | **Cause**                               | **Resolution** |
+| ------------------- | ---------------------------------------------------------- | --------------------------------------------- | -------------------- |
+| Reference Error     | You must enter a valid assignment number.                  | AssignmentNumber not found or inactive.       | Rejects payload.     |
+| Reference Error     | The element name is invalid or does not exist.             | ElementName is invalid                        | Business process     |
+| Reference Error     | The input value name is not valid for the element.         | Invalid or misspelled input name.             | Business Process     |
+| Business Rule Error | The element is not eligible for the employee's assignment. | Element is not available to the assignment.   | Business Process     |
+| Business Rule Error | The input value is required.                               | Mandatory input (e.g., Pay Value) is missing. | Business Process     |
+| Business Rule Risk  | *No error – duplicate entries are silently accepted*    | Same employee, element, and date repeated.    | Business Process     |
 
 ---
 
 ## 7. Business Process
+
 * Review error reports and process records
 * Take corrective action based on the issue:
   - if resolvable in Oracle (e.g., missing configuration)
@@ -74,7 +113,6 @@ The recommended strategy is:
   - If the issue originates from Helm (e.g., duplicate entries or incorrect calculations):
     - Notify the Seaspan tech team to roll back the payroll
     - Escalate to Helm to reprocess and resend the entire payroll
-
 
 ## 8. Cons of Pre-validation in OIC
 
@@ -88,4 +126,4 @@ The recommended strategy is:
 | No Added Benefit        | OIC cannot reject bad records anyway – must send full batch per HELM requirements | Extra work with no downstream benefit                                       |
 | Duplicate Entry Risk    | OIC cannot access HCM history to detect prior entries                              | Duplicates silently accepted by HDL, causing risk of double pay             |
 | No Callback API         | No Callback API for sending validation results back to the boundary systems        | Pre-validation errors must be handled via logging or manual communication   |
-| Full Batch Resend       | HELM must resend full file even for 1–2 bad records                               | Pre-validation adds complexity                                              |
+| Full Batch Resend       | HELM must resend full file even for 1–2 bad records                               | Pre-validation adds complexityValidation:                                   |
